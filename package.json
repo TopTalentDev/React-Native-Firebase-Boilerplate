@@ -1,0 +1,84 @@
+{
+  "name": "ReactNativeFirebaseBoilerplate",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "lint": "eslint -c .eslintrc ./app ./__tests__",
+    "precommit": "lint-staged",
+    "prettier": "prettier --config ./.prettierrc --write",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "run:android": "react-native run-android",
+    "run:ios": "react-native run-ios",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "npm test -- --coverage",
+    "storybook": "storybook start -p 7007"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-native": "0.57.1",
+    "react-native-fast-image": "^5.0.10",
+    "react-native-style-tachyons": "^4.0.0",
+    "react-native-vector-icons": "^6.0.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-persist-sensitive-storage": "^1.0.0",
+    "redux-saga": "^0.16.0",
+    "shortid": "^2.2.13"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^3.3.13",
+    "@storybook/addon-links": "^3.3.13",
+    "@storybook/react": "^3.3.13",
+    "@storybook/react-native": "^3.3.13",
+    "babel-core": "^6.26.3",
+    "babel-jest": "23.6.0",
+    "babel-preset-react-native": "4.0.1",
+    "eslint": "^5.6.1",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-babel": "^5.2.1",
+    "eslint-plugin-detox": "^1.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-native": "^3.3.0",
+    "husky": "^1.1.0",
+    "jest": "23.6.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "react-test-renderer": "16.5.2",
+    "redux-mock-store": "^1.5.3"
+  },
+  "jest": {
+    "preset": "react-native",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/e2e/"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|redux-persist-sensitive-storage|redux-persist)"
+    ],
+    "globals": {
+      "window": true
+    }
+  },
+  "lint-staged": {
+    "app/**/*.{js,jsx,json}": [
+      "prettier",
+      "git add"
+    ],
+    "__tests__/**/*.{js,jsx,json}": [
+      "prettier",
+      "git add"
+    ]
+  }
+}

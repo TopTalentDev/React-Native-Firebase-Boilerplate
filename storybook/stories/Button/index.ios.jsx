@@ -8,10 +8,10 @@ export default function Button(props) {
 
 Button.defaultProps = {
   children: null,
-  onPress: () => {},
+  onPress: () => {}
 };
 
 Button.propTypes = {
   children: PropTypes.node,
-  onPress: PropTypes.func,
+  onPress: PropTypes.func
 };

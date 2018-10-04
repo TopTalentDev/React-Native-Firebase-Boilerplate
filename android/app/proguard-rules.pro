@@ -68,3 +68,8 @@
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
+
+# firebase
+
+-keep class io.invertase.firebase.** { *; }
+-dontwarn io.invertase.firebase.**

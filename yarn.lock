@@ -7997,6 +7997,10 @@ react-native-iphone-x-helper@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
 
+react-native-permissions@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
+
 react-native-style-tachyons@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-native-style-tachyons/-/react-native-style-tachyons-4.0.0.tgz#279679b9ad310cfa62646681d43271af09a5e0a2"

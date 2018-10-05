@@ -13,8 +13,7 @@ const logger = createLogger({
   predicate: () => __DEV__
 });
 const sagaMiddleware = createSagaMiddleware();
-const reducer = getCombinedReducers();
-const store = createStore(reducer, {}, compose(applyMiddleware(sagaMiddleware, logger)));
+const store = createStore(getCombinedReducers(), {}, compose(applyMiddleware(sagaMiddleware, logger)));
 const persistor = persistStore(store, { throttle: 2000 });
 
 sagaMiddleware.run(sagas);

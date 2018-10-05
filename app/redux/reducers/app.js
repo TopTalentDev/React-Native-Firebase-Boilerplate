@@ -1,24 +1,36 @@
 import { REHYDRATE } from 'redux-persist';
-import { LOGIN_SUCCESS, LOGOUT_REQUESTED } from '../actionTypes';
+import { USER_LOGOUT_REQUEST, APP_INITIALIZED_SET, APP_INITIALIZE_ERROR } from '../actionTypes';
 
-export function me(state = {}, action) {
+const appInitialState = {};
+export function app(state = appInitialState, action) {
   switch (action.type) {
     case REHYDRATE: {
       return { ...state };
     }
-    case LOGIN_SUCCESS: {
-      return { ...state, password: action.payload.password, ...action.payload.me };
-    }
-    case LOGOUT_REQUESTED:
-      return {};
   }
   return state;
 }
 
-export function app(state = {}, action) {
+const initState = {
+  isInitialized: false,
+  error: ''
+};
+export function initialization(state = initState, action) {
   switch (action.type) {
-    case REHYDRATE: {
-      return { ...state };
+    case USER_LOGOUT_REQUEST: {
+      return { ...initState };
+    }
+    case APP_INITIALIZED_SET: {
+      return {
+        ...state,
+        isInitialized: true
+      };
+    }
+    case APP_INITIALIZE_ERROR: {
+      return {
+        ...state,
+        error: action.payload
+      };
     }
   }
   return state;

@@ -1,2 +1,13 @@
-export const LOGIN_SUCCESS = 'auth/SUCCESS';
-export const LOGOUT_REQUESTED = 'auth/LOGOUT_REQUESTED';
+const APP_NAME = 'my-app';
+export const APP_INITIALIZE_REQUEST = `${APP_NAME}/app/INITIALIZE_REQUEST`;
+export const APP_INITIALIZED_SET = `${APP_NAME}/app/INITIALIZE_SET`;
+export const APP_INITIALIZE_ERROR = `${APP_NAME}/app/INITIALIZE_ERROR`;
+export const USER_LOGIN_SUCCESS_SET = `${APP_NAME}/auth/USER_LOGIN_SUCCESS_SET`;
+export const USER_LOGIN_ERROR_SET = `${APP_NAME}/auth/USER_LOGIN_ERROR_SET`;
+export const USER_LOGIN_REQUEST = `${APP_NAME}/auth/USER_LOGIN_REQUEST`;
+export const USER_LOGOUT_REQUEST = `${APP_NAME}/auth/USER_LOGOUT_REQUEST`;
+export const PERMISSIONS_ALL_GET = `${APP_NAME}/permissions/ALL_GET`;
+export const PERMISSIONS_REQUEST = `${APP_NAME}/permissions/REQUEST`;
+export const PERMISSIONS_ALL_SET = `${APP_NAME}/permissions/ALL_SET`;
+export const NOTIFICATIONS_PAYLOAD_SET = `${APP_NAME}/notifications/PAYLOAD_SET`;
+export const NOTIFICATIONS_PAYLOAD_CLEAR = `${APP_NAME}/notifications/PAYLOAD_CLEAR`;

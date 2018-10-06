@@ -56,3 +56,6 @@ buck-out/
 
 /coverage
 /ios/Pods
+
+/ios/**/GoogleService-Info.plist
+/android/**/google-services.json

@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'ReactNativeServerlessBoilerplate' do
+target 'EMBPRNFirebaseBoilerplate' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for ReactNativeServerlessBoilerplate
+  # Pods for EMBPRNFirebaseBoilerplate
 
   # Firebase
   pod 'Firebase/AdMob', '~> 5.9.0'
@@ -16,22 +16,31 @@ target 'ReactNativeServerlessBoilerplate' do
   pod 'Firebase/RemoteConfig', '~> 5.9.0'
   pod 'Firebase/Storage', '~> 5.9.0'
   pod 'Firebase/Performance', '~> 5.9.0'
+  
+  pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
 
+  pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
 
-  target 'ReactNativeServerlessBoilerplateTests' do
+  pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
+  target 'EMBPRNFirebaseBoilerplateTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
 end
 
-target 'ReactNativeServerlessBoilerplate-tvOS' do
+target 'EMBPRNFirebaseBoilerplate-tvOS' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for ReactNativeServerlessBoilerplate-tvOS
+  # Pods for EMBPRNFirebaseBoilerplate-tvOS
 
-  target 'ReactNativeServerlessBoilerplate-tvOSTests' do
+  target 'EMBPRNFirebaseBoilerplate-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

@@ -96,19 +96,18 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.reactnativeserverlessboilerplate"
-        minSdkVersion 16
-        targetSdkVersion 22
+        applicationId "com.embprnfirebaseboilerplate"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        multiDexEnabled true  // needed for firestore
     }
     splits {
         abi {
@@ -140,12 +139,16 @@ android {
 }
 
 dependencies {
+    compile project(':rn-fetch-blob')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-sensitive-info')
     compile project(':react-native-firebase')
-    implementation project(':react-native-firebase')
+    compile project(':react-native-fast-image')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:23.0.1"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    // Firebase dependencies
+     // Firebase dependencies
+    implementation project(':react-native-firebase')
     implementation "com.google.android.gms:play-services-base:15.0.1"
     implementation "com.google.firebase:firebase-core:16.0.3"
     implementation "com.google.firebase:firebase-ads:15.0.1"
@@ -165,5 +168,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
-
-apply plugin: 'com.google.gms.google-services'

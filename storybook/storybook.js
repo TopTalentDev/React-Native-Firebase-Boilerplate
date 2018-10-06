@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { getStorybookUI, configure } from '@storybook/react-native';
@@ -21,5 +20,5 @@ class StorybookUIHMRRoot extends Component {
   }
 }
 
-AppRegistry.registerComponent('ReactNativeServerlessBoilerplate', () => StorybookUIHMRRoot);
+AppRegistry.registerComponent('EMBPRNFirebaseBoilerplate', () => StorybookUIHMRRoot);
 export default StorybookUIHMRRoot;

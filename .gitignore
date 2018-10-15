@@ -53,7 +53,7 @@ buck-out/
 */fastlane/screenshots
 
 .vscode
-.code-workspace
+*.code-workspace
 
 /coverage
 /ios/Pods

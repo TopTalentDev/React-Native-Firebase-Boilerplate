@@ -1,19 +1,20 @@
+import React from 'react';
 import { StackNavigator, DrawerNavigator, TabNavigator, TabBarTop } from 'react-navigation';
-import colors from '../theme/colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from './screenNames';
+import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
+import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
+import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
 
 export const AppDrawerNavigator = DrawerNavigator(
   {
-    [SCREEN_CONNECT]: {
-      screen: props => <MainConnect appNavigation={props.navigation} />
+    [SCREEN_PROFILE]: {
+      screen: props => <ScreenProfileContainer appNavigation={props.navigation} />
     },
-    [SCREEN_CORPORATE_DIRECTORY]: {
-      screen: props => <MainDirectory appNavigation={props.navigation} />
-    },
-    [SCREEN_SETTINGS]: { screen: SettingsContainer }
+    [SCREEN_SETTINGS]: { screen: ScreenSettingsContainer }
   },
   {
-    contentComponent: AppDrawerContainer,
+    contentComponent: DrawerMainMenuContainer,
     drawerWidth: 280
   }
 );
@@ -21,43 +22,34 @@ export const AppDrawerNavigator = DrawerNavigator(
 export const DirectoryNavigator = TabNavigator(
   {
     [SCREEN_PROFILE]: {
-      screen: props => <PeopleTab screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />,
+      screen: props => (
+        <ScreenProfileContainer screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />
+      ),
       navigationOptions: {
-        tabBarLabel: 'People',
-        tabBarIcon: ({ tintColor }) => (
-          <Image source={{ uri: 'peopleicon' }} style={[{ width: 28, height: 25 }, { tintColor: tintColor }]} /> // eslint-disable-line
-        )
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ tintColor }) => <Icon name="people" size={30} color={tintColor} /> // eslint-disable-line
       }
     },
-    [SCREEN_DEPARTMENTS]: {
-      screen: props => <DepartmentsTab screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />,
+    [SCREEN_SETTINGS]: {
+      screen: props => (
+        <ScreenSettingsContainer screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />
+      ),
       navigationOptions: {
-        tabBarLabel: 'Departments',
-        tabBarIcon: ({ tintColor }) => (
-          <Image source={{ uri: 'departmenticon' }} style={[{ width: 28, height: 28 }, { tintColor: tintColor }]} /> // eslint-disable-line
-        )
-      }
-    },
-    [SCREEN_TERRITORIES]: {
-      screen: props => <TerritoriesTab screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />,
-      navigationOptions: {
-        tabBarLabel: 'Territories',
-        tabBarIcon: ({ tintColor }) => (
-          <Image source={{ uri: 'icon-name' }} style={[{ width: 28, height: 28 }, { tintColor: tintColor }]} />
-        )
+        tabBarLabel: 'Settings',
+        tabBarIcon: ({ tintColor }) => <Icon name="gear" size={30} color={tintColor} /> // eslint-disable-line
       }
     }
   },
   {
-    initialRouteName: SCREEN_PEOPLE,
+    initialRouteName: SCREEN_PROFILE,
     tabBarPosition: 'bottom',
     animationEnabled: false,
     tabBarOptions: {
       showIcon: true,
-      activeTintColor: colors.BLUE,
-      inactiveTintColor: colors.GRAY,
+      activeTintColor: 'blue',
+      inactiveTintColor: 'gray',
       style: {
-        backgroundColor: colors.GRAY2
+        backgroundColor: 'white'
       },
       iconStyle: {
         width: 30,
@@ -70,11 +62,6 @@ export const DirectoryNavigator = TabNavigator(
   }
 );
 
-export const AppNavigator = StackNavigator(
-  {
-    AppDrawerNavigator: { screen: AppDrawerNavigator }
-  },
-  {
-    headerMode: 'none'
-  }
-);
+export const AppNavigator = StackNavigator({
+  AppDrawerNavigator: { screen: AppDrawerNavigator }
+});

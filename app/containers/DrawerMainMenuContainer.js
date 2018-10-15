@@ -4,19 +4,20 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import styles from './styles/DrawerMainMenuContainerStyles';
+import styles from './DrawerMainMenuContainerStyles';
 import Avatar from '../components/Avatar';
 import actionCreators from '../redux/actions';
+import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
 const items = [
   {
     id: 1,
-    name: 'Connect',
-    label: 'Connect'
+    name: SCREEN_PROFILE,
+    label: 'Profile'
   },
   {
     id: 2,
-    name: 'CorporateDirectory',
-    label: 'Corporate Directory'
+    name: SCREEN_SETTINGS,
+    label: 'Settings'
   }
 ];
 
@@ -33,12 +34,6 @@ export class DrawerMainMenuContainer extends Component {
         {!_.isEmpty(me) && (
           <View style={styles.login}>
             <Avatar user={me} />
-            <View style={styles.identity}>
-              <Text style={styles.grettingLabel}>Hello</Text>
-              <Text style={styles.nameLabel}>
-                {me.first_name} {me.last_name}
-              </Text>
-            </View>
           </View>
         )}
         <TouchableOpacity style={styles.settingsButton} onPress={this._onSettingsPressed}>
@@ -47,25 +42,23 @@ export class DrawerMainMenuContainer extends Component {
       </View>
     );
   }
-
   _navigate(route) {
     this.props.navigation.navigate(route);
   }
-
   _onSettingsPressed = () => {
     this._navigate('Settings');
   };
-
   _onItemPressed = item => {
     this._navigate(item.name);
   };
-
   _renderItem = ({ item }) => {
-    return <MenuItem key={item.id} item={item} onPress={this._onItemPressed} />;
+    return (
+      <View>
+        <Text>{item.name}</Text>
+      </View>
+    );
   };
-
   _keyExtractor = item => item.id;
-
   _renderList() {
     return (
       <FlatList
@@ -76,7 +69,6 @@ export class DrawerMainMenuContainer extends Component {
       />
     );
   }
-
   render() {
     return (
       <View style={styles.container}>
@@ -89,24 +81,11 @@ export class DrawerMainMenuContainer extends Component {
 
 DrawerMainMenuContainer.propTypes = {
   navigation: PropTypes.object,
-  me: PropTypes.object,
-  menuOpened: PropTypes.bool
+  me: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  uid: state.db.auth.uid,
-  selectedProjectId: state.projectReducer.selectedProjectId,
-  workingEstimationTask: state.projectReducer.workingEstimationTask,
-  workingEstimationProjectType: state.projectReducer.workingEstimationProjectType,
-  workingEstimationType: state.projectReducer.workingEstimationType,
-  workingEstimationHourlyRate: state.projectReducer.workingEstimationHourlyRate,
-  workingEstimationVelocity: state.projectReducer.workingEstimationVelocity,
-  workingEstimationWeeklyLaborCost: state.projectReducer.workingEstimationWeeklyLaborCost,
-  workingEstimationSprintLength: state.projectReducer.workingEstimationSprintLength,
-  workingEstimationTaskList: state.projectReducer.workingEstimationTaskList,
-  workingEstimationProjectName: state.projectReducer.workingEstimationProjectName,
-  workingEstimationClientName: state.projectReducer.workingEstimationClientName,
-  workingEstimationContractorName: state.projectReducer.workingEstimationContractorName
+  me: state.me
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

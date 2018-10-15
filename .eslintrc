@@ -27,6 +27,7 @@
   "rules": {
     "no-console": "off",
     "react-native/no-color-literals": "off",
+    "react/display-name": "off",
     "import/order" : ["error", { "newlines-between": "never", "groups": ["builtin", "external","internal", ["sibling", "parent"],"index"]}]
   },
   "extends": [

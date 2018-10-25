@@ -23,3 +23,9 @@ export const flexbox = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+export const elevations = StyleSheet.create({
+  e_10: {
+    elevation: 10
+  }
+});

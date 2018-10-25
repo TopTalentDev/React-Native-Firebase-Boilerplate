@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 export default class Avatar extends Component {
   render() {
-    return <View>{this.props.me}</View>;
+    return (
+      <View>
+        Avatar
+        {this.props.me}
+      </View>
+    );
   }
 }
 

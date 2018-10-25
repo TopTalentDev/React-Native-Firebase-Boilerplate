@@ -1,12 +1,21 @@
 import React from 'react';
-import { StackNavigator, DrawerNavigator, TabNavigator, TabBarTop } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text, TouchableHighlight } from 'react-native';
+import {
+  StackNavigator,
+  DrawerNavigator,
+  TabNavigator,
+  TabBarTop,
+  createStackNavigator,
+  createDrawerNavigator
+} from 'react-navigation';
+import { DrawerActions } from 'react-navigation-drawer';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
 
-export const AppDrawerNavigator = DrawerNavigator(
+export const AppDrawerNavigator = createDrawerNavigator(
   {
     [SCREEN_PROFILE]: {
       screen: props => <ScreenProfileContainer appNavigation={props.navigation} />
@@ -62,6 +71,17 @@ export const DirectoryNavigator = TabNavigator(
   }
 );
 
-export const AppNavigator = StackNavigator({
-  AppDrawerNavigator: { screen: AppDrawerNavigator }
+export const AppNavigator = createStackNavigator({
+  AppDrawerNavigator: {
+    screen: AppDrawerNavigator,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: ({ focused, tintColor }) => (
+          <TouchableHighlight onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+            <Icon style={{ marginLeft: 5 }} name="bars" size={30} color={tintColor} />
+          </TouchableHighlight>
+        ) // eslint-disable-line
+      };
+    }
+  }
 });

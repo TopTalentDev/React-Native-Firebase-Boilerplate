@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text, TouchableOpacity, Image } from 'react-native';
+import { FlatList, View, Text, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import styles from './DrawerMainMenuContainerStyles';
+import { styles as s } from 'react-native-style-tachyons';
+import { elevations } from '../theme/global-styles';
 import Avatar from '../components/Avatar';
 import actionCreators from '../redux/actions';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
@@ -28,33 +30,31 @@ export class DrawerMainMenuContainer extends Component {
   }
   _renderHeader() {
     const { me } = this.props;
-
     return (
-      <View style={styles.header}>
+      <View style={[s.f, s.flx_row, s.bg_darkGray, s.pa2]}>
         {!_.isEmpty(me) && (
-          <View style={styles.login}>
+          <View>
             <Avatar user={me} />
           </View>
         )}
-        <TouchableOpacity style={styles.settingsButton} onPress={this._onSettingsPressed}>
-          <Image source={{ uri: 'drawer-icon' }} />
+        <TouchableOpacity onPress={this._onSettingsPressed}>
+          <Icon name="cogs" size={20} style={s.white} />
         </TouchableOpacity>
       </View>
     );
   }
-  _navigate(route) {
-    this.props.navigation.navigate(route);
-  }
   _onSettingsPressed = () => {
-    this._navigate('Settings');
+    this.props.navigation.navigate(SCREEN_SETTINGS);
   };
   _onItemPressed = item => {
-    this._navigate(item.name);
+    this.props.navigation.navigate(item.name);
   };
   _renderItem = ({ item }) => {
     return (
       <View>
-        <Text>{item.name}</Text>
+        <TouchableOpacity onPress={() => this._onItemPressed(item)}>
+          <Text style={s.white}>{item.label}</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -62,7 +62,7 @@ export class DrawerMainMenuContainer extends Component {
   _renderList() {
     return (
       <FlatList
-        style={styles.list}
+        style={[s.bg_black, s.pa2]}
         data={this.state.items}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}
@@ -71,7 +71,7 @@ export class DrawerMainMenuContainer extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[elevations.e_10, s.f, s.flx_i, s.bg_black]}>
         {this._renderHeader()}
         {this._renderList()}
       </View>

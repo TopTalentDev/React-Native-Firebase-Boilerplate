@@ -10,17 +10,19 @@ import {
 } from 'react-navigation';
 import { DrawerActions } from 'react-navigation-drawer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SCREEN_PROFILE, SCREEN_SETTINGS } from './screenNames';
+import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
+import { ScreenListContainer } from '../containers/ScreenListContainer';
 
 export const AppDrawerNavigator = createDrawerNavigator(
   {
     [SCREEN_PROFILE]: {
       screen: props => <ScreenProfileContainer appNavigation={props.navigation} />
     },
-    [SCREEN_SETTINGS]: { screen: ScreenSettingsContainer }
+    [SCREEN_SETTINGS]: { screen: ScreenSettingsContainer },
+    [SCREEN_LIST]: { screen: ScreenListContainer }
   },
   {
     contentComponent: DrawerMainMenuContainer,
@@ -28,7 +30,7 @@ export const AppDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export const DirectoryNavigator = TabNavigator(
+export const TheTabNavigator = TabNavigator(
   {
     [SCREEN_PROFILE]: {
       screen: props => (

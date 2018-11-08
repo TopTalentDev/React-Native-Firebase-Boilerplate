@@ -9,7 +9,7 @@ import { styles as s } from 'react-native-style-tachyons';
 import { elevations } from '../theme/global-styles';
 import Avatar from '../components/Avatar';
 import actionCreators from '../redux/actions';
-import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
+import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST } from '../navigators/screenNames';
 const items = [
   {
     id: 1,
@@ -20,6 +20,11 @@ const items = [
     id: 2,
     name: SCREEN_SETTINGS,
     label: 'Settings'
+  },
+  {
+    id: 3,
+    name: SCREEN_LIST,
+    label: 'List'
   }
 ];
 

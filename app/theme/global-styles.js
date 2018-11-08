@@ -7,7 +7,8 @@ export const containers = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
+    flex: 1
   }
 });
 

@@ -10,13 +10,24 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { styles as s } from 'react-native-style-tachyons';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN, SCREEN_STACK_HOME } from './screenNames';
+import {
+  SCREEN_PROFILE,
+  SCREEN_SETTINGS,
+  SCREEN_LIST,
+  SCREEN_LOGIN,
+  SCREEN_STACK_HOME,
+  SCREEN_TABBED1,
+  SCREEN_TABBED_MAIN,
+  SCREEN_TABBED2
+} from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
 import { ScreenListContainer } from '../containers/ScreenListContainer';
 import { ScreenLoginContainer } from '../containers/ScreenLoginContainer';
 import colors from '../theme/colors';
+import { ScreenTabbed1Container } from '../containers/ScreenTabbed1Container';
+import { ScreenTabbed2Container } from '../containers/ScreenTabbed2Container';
 
 const renderMenuButton = (focused, tintColor, navigation) => {
   return (
@@ -34,41 +45,28 @@ const renderBackButton = (focused, tintColor, navigation) => {
   );
 };
 
-export const TheTabNavigator = createBottomTabNavigator(
+export const BottomTabNavigator = createBottomTabNavigator(
   {
-    [SCREEN_PROFILE]: {
-      screen: ScreenProfileContainer,
-      navigationOptions: {
-        tabBarLabel: 'Profile',
-        tabBarIcon: ({ tintColor }) => <Icon name="people" size={30} color={tintColor} /> // eslint-disable-line
-      }
-    },
-    [SCREEN_SETTINGS]: {
-      screen: ScreenSettingsContainer,
-      navigationOptions: {
-        tabBarLabel: 'Settings',
-        tabBarIcon: ({ tintColor }) => <Icon name="gear" size={30} color={tintColor} /> // eslint-disable-line
-      }
-    }
+    [SCREEN_TABBED1]: ScreenTabbed1Container,
+    [SCREEN_TABBED2]: ScreenTabbed2Container
   },
   {
-    initialRouteName: SCREEN_PROFILE,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
-    tabBarOptions: {
-      showIcon: true,
-      activeTintColor: 'blue',
-      inactiveTintColor: 'gray',
-      style: {
-        backgroundColor: 'white'
-      },
-      iconStyle: {
-        width: 30,
-        height: 30
-      },
-      labelStyle: {
-        fontSize: 11
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === SCREEN_TABBED1) {
+          iconName = `ios-people`;
+        } else if (routeName === SCREEN_TABBED2) {
+          iconName = `md-microphone`;
+        }
+        return <Icon name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
       }
+    }),
+    tabBarOptions: {
+      activeTintColor: colors.blue,
+      inactiveTintColor: colors.midGray,
+      showLabel: false
     }
   }
 );
@@ -119,6 +117,17 @@ export const ScreenSettingsNavigator = createStackNavigator({
   }
 });
 
+export const ScreenTabbedNavigator = createStackNavigator({
+  [SCREEN_TABBED_MAIN]: {
+    screen: BottomTabNavigator,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+      };
+    }
+  }
+});
+
 export const AppDrawerNavigator = createDrawerNavigator(
   {
     Profile: {
@@ -129,6 +138,9 @@ export const AppDrawerNavigator = createDrawerNavigator(
     },
     List: {
       screen: MainStackNavigator
+    },
+    Tabbed: {
+      screen: ScreenTabbedNavigator
     }
   },
   {

@@ -59,7 +59,7 @@ ScreenList.defaultProps = {
 
 const mapStateToProps = state => {
   return {
-    data: [{ id: 1 }, { id: 2 }]
+    data: [{ id: '1' }, { id: '2' }]
   };
 };
 

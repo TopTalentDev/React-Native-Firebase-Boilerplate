@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers } from '../theme/global-styles';
+import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
+import { MainStackNavigator } from '../navigators';
 
 export class ScreenList extends Component {
   state = { selected: {} };
@@ -14,6 +16,16 @@ export class ScreenList extends Component {
 
   _onPressItem = id => {
     this.setState({ selected: { ...this.state.selected, [id]: !this.state.selected[id] } });
+  };
+
+  _onGoToProfilePress = () => {
+    console.log(this.props.navigation);
+    this.props.navigation.navigate(SCREEN_PROFILE);
+  };
+
+  _onGoToSettingsPress = () => {
+    console.log(MainStackNavigator);
+    this.props.navigation.navigate(SCREEN_SETTINGS);
   };
 
   _renderItem = ({ item }) => (
@@ -25,7 +37,12 @@ export class ScreenList extends Component {
   render() {
     return (
       <View style={[containers.containerMain]}>
-        <Text>Sample List</Text>
+        <TouchableHighlight onPress={this._onGoToProfilePress}>
+          <Text>Go to profile</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this._onGoToSettingsPress}>
+          <Text>Go to settings</Text>
+        </TouchableHighlight>
         <FlatList data={this.props.data} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />
       </View>
     );
@@ -33,7 +50,8 @@ export class ScreenList extends Component {
 }
 
 ScreenList.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  navigation: PropTypes.object
 };
 
 ScreenList.defaultProps = {

@@ -10,7 +10,7 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { styles as s } from 'react-native-style-tachyons';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN, SCREEN_STACK_MAIN } from './screenNames';
+import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
@@ -73,32 +73,27 @@ export const TheTabNavigator = createBottomTabNavigator(
   }
 );
 
-export const SampleSubStackNavigator = createStackNavigator(
+// Screens that share the same header bar
+export const MainStackNavigator = createStackNavigator(
   {
     [SCREEN_LIST]: {
       screen: ScreenListContainer,
-      navigationOptions: { header: null }
-    }
-  },
-  {
-    initialRouteName: SCREEN_LIST
-  }
-);
-
-// Holds one single header for the sub-stack
-export const MainStackNavigator = createStackNavigator(
-  {
-    SampleSubStackNavigator: {
-      screen: SampleSubStackNavigator,
       navigationOptions: ({ navigation }) => {
         return {
           headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
         };
       }
+    },
+    [SCREEN_PROFILE]: {
+      screen: ScreenProfileContainer
+    },
+    [SCREEN_SETTINGS]: {
+      screen: ScreenSettingsContainer
     }
   },
   {
-    initialRouteName: 'SampleSubStackNavigator'
+    initialRouteName: SCREEN_LIST,
+    headerMode: 'float'
   }
 );
 
@@ -118,7 +113,7 @@ export const ScreenSettingsNavigator = createStackNavigator({
     screen: ScreenSettingsContainer,
     navigationOptions: ({ navigation }) => {
       return {
-        headerLeft: ({ focused, tintColor }) => renderBackButton(focused, tintColor, navigation)
+        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
       };
     }
   }

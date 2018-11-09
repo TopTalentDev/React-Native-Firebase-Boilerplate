@@ -33,11 +33,11 @@ export class ScreenList extends Component {
 }
 
 ScreenList.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.array
 };
 
 ScreenList.defaultProps = {
-  data: [{ id: 1 }, { id: 2 }]
+  data: []
 };
 
 const mapStateToProps = state => {

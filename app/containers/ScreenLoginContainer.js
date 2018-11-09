@@ -7,27 +7,30 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers } from '../theme/global-styles';
 
-export class ScreenSettings extends Component {
+export class ScreenLogin extends Component {
   render() {
     return (
       <View style={containers.containerMain}>
-        <Text style={s.f3}>Settings</Text>
+        <Text style={s.f3}>Login</Text>
+        <Text>{this.props.me.profile.name}</Text>
       </View>
     );
   }
 }
 
-ScreenSettings.propTypes = {
-  app: PropTypes.object
+ScreenLogin.propTypes = {
+  me: PropTypes.object,
+  isInitialized: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  app: state.app
+  me: state.me,
+  isInitialized: state.initialization.isInitialized
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
 
-export const ScreenSettingsContainer = connect(
+export const ScreenLoginContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScreenSettings);
+)(ScreenLogin);

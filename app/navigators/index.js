@@ -1,50 +1,50 @@
 import React from 'react';
 import { Text, TouchableHighlight } from 'react-native';
 import {
-  StackNavigator,
-  DrawerNavigator,
-  TabNavigator,
-  TabBarTop,
+  createBottomTabNavigator,
   createStackNavigator,
-  createDrawerNavigator
+  createDrawerNavigator,
+  createSwitchNavigator,
+  NavigationActions
 } from 'react-navigation';
 import { DrawerActions } from 'react-navigation-drawer';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST } from './screenNames';
+import { styles as s } from 'react-native-style-tachyons';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN, SCREEN_STACK_MAIN } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
 import { ScreenListContainer } from '../containers/ScreenListContainer';
+import { ScreenLoginContainer } from '../containers/ScreenLoginContainer';
+import colors from '../theme/colors';
 
-export const AppDrawerNavigator = createDrawerNavigator(
+const renderMenuButton = (focused, tintColor, navigation) => {
+  return (
+    <TouchableHighlight onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+      <Icon style={s.ml2} name="ios-menu" size={30} color={tintColor} />
+    </TouchableHighlight>
+  );
+};
+
+const renderBackButton = (focused, tintColor, navigation) => {
+  return (
+    <TouchableHighlight onPress={() => navigation.dispatch(NavigationActions.back())}>
+      <Text style={[{ color: tintColor }, s.ml2]}>Back</Text>
+    </TouchableHighlight>
+  );
+};
+
+export const TheTabNavigator = createBottomTabNavigator(
   {
     [SCREEN_PROFILE]: {
-      screen: props => <ScreenProfileContainer appNavigation={props.navigation} />
-    },
-    [SCREEN_SETTINGS]: { screen: ScreenSettingsContainer },
-    [SCREEN_LIST]: { screen: ScreenListContainer }
-  },
-  {
-    contentComponent: DrawerMainMenuContainer,
-    drawerWidth: 280
-  }
-);
-
-export const TheTabNavigator = TabNavigator(
-  {
-    [SCREEN_PROFILE]: {
-      screen: props => (
-        <ScreenProfileContainer screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />
-      ),
+      screen: ScreenProfileContainer,
       navigationOptions: {
         tabBarLabel: 'Profile',
         tabBarIcon: ({ tintColor }) => <Icon name="people" size={30} color={tintColor} /> // eslint-disable-line
       }
     },
     [SCREEN_SETTINGS]: {
-      screen: props => (
-        <ScreenSettingsContainer screenProps={{ ...props.screenProps, tabNavigation: props.navigation }} />
-      ),
+      screen: ScreenSettingsContainer,
       navigationOptions: {
         tabBarLabel: 'Settings',
         tabBarIcon: ({ tintColor }) => <Icon name="gear" size={30} color={tintColor} /> // eslint-disable-line
@@ -73,17 +73,99 @@ export const TheTabNavigator = TabNavigator(
   }
 );
 
-export const AppNavigator = createStackNavigator({
-  AppDrawerNavigator: {
-    screen: AppDrawerNavigator,
+export const SampleSubStackNavigator = createStackNavigator(
+  {
+    [SCREEN_LIST]: {
+      screen: ScreenListContainer,
+      navigationOptions: { header: null }
+    }
+  },
+  {
+    initialRouteName: SCREEN_LIST
+  }
+);
+
+// Holds one single header for the sub-stack
+export const MainStackNavigator = createStackNavigator(
+  {
+    SampleSubStackNavigator: {
+      screen: SampleSubStackNavigator,
+      navigationOptions: ({ navigation }) => {
+        return {
+          headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+        };
+      }
+    }
+  },
+  {
+    initialRouteName: 'SampleSubStackNavigator'
+  }
+);
+
+export const ScreenProfileNavigator = createStackNavigator({
+  [SCREEN_PROFILE]: {
+    screen: ScreenProfileContainer,
     navigationOptions: ({ navigation }) => {
       return {
-        headerLeft: ({ focused, tintColor }) => (
-          <TouchableHighlight onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-            <Icon style={{ marginLeft: 5 }} name="bars" size={30} color={tintColor} />
-          </TouchableHighlight>
-        ) // eslint-disable-line
+        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
       };
     }
   }
 });
+
+export const ScreenSettingsNavigator = createStackNavigator({
+  [SCREEN_SETTINGS]: {
+    screen: ScreenSettingsContainer,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: ({ focused, tintColor }) => renderBackButton(focused, tintColor, navigation)
+      };
+    }
+  }
+});
+
+export const AppDrawerNavigator = createDrawerNavigator(
+  {
+    Profile: {
+      screen: ScreenProfileNavigator
+    },
+    Settings: {
+      screen: ScreenSettingsNavigator
+    },
+    List: {
+      screen: MainStackNavigator
+    }
+  },
+  {
+    contentComponent: DrawerMainMenuContainer,
+    drawerWidth: 280,
+    initialRouteName: 'List',
+    contentOptions: {
+      inactiveTintColor: colors.white,
+      activeTintColor: colors.blue
+    }
+  }
+);
+
+export const HomeStack = createStackNavigator({
+  Drawer: {
+    screen: AppDrawerNavigator,
+    navigationOptions: { header: null }
+  }
+});
+
+export const AppNavigator = createSwitchNavigator(
+  {
+    [SCREEN_LOGIN]: {
+      screen: ScreenLoginContainer,
+      navigationOptions: { header: null }
+    },
+    HomeStack: {
+      screen: HomeStack,
+      navigationOptions: { header: null }
+    }
+  },
+  {
+    initialRouteName: 'HomeStack'
+  }
+);

@@ -161,6 +161,6 @@ export const AppNavigator = createSwitchNavigator(
     }
   },
   {
-    initialRouteName: 'HomeStack'
+    initialRouteName: SCREEN_LOGIN
   }
 );

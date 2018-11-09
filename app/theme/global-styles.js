@@ -6,10 +6,14 @@ export const containers = StyleSheet.create({
   containerMain: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     padding: 10,
     flex: 1
   }
+});
+
+export const layout = StyleSheet.create({
+  w100: { width: '100%' }
 });
 
 export const flexbox = StyleSheet.create({

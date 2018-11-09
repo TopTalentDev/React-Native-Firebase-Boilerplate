@@ -7,7 +7,7 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers } from '../theme/global-styles';
 
-export class ScreenSettingsContainer extends Component {
+export class ScreenSettings extends Component {
   render() {
     return (
       <View style={containers.containerMain}>
@@ -18,7 +18,7 @@ export class ScreenSettingsContainer extends Component {
   }
 }
 
-ScreenSettingsContainer.propTypes = {
+ScreenSettings.propTypes = {
   app: PropTypes.object
 };
 
@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
 
-export default connect(
+export const ScreenSettingsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScreenSettingsContainer);
+)(ScreenSettings);

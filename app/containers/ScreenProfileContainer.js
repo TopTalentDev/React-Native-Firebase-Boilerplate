@@ -7,28 +7,34 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers } from '../theme/global-styles';
 
-export class ScreenProfileContainer extends Component {
+export class ScreenProfile extends Component {
   render() {
+    console.log(this.props.isInitialized);
     return (
       <View style={containers.containerMain}>
         <Text style={s.f3}>Profile Details</Text>
-        {this.props.me}
+        <Text>{this.props.me.profile.name}</Text>
       </View>
     );
   }
 }
 
-ScreenProfileContainer.propTypes = {
-  me: PropTypes.object
+ScreenProfile.propTypes = {
+  me: PropTypes.object,
+  isInitialized: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  me: state.me
+  me: state.me,
+  isInitialized: state.initialization.isInitialized
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = dispatch => {
+  console.log('MAP DISPATCH');
+  return bindActionCreators(actionCreators, dispatch);
+};
 
-export default connect(
+export const ScreenProfileContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScreenProfileContainer);
+)(ScreenProfile);

@@ -7,7 +7,7 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers } from '../theme/global-styles';
 
-export class ScreenListContainer extends Component {
+export class ScreenList extends Component {
   state = { selected: {} };
 
   _keyExtractor = item => item.id;
@@ -32,11 +32,11 @@ export class ScreenListContainer extends Component {
   }
 }
 
-ScreenListContainer.propTypes = {
+ScreenList.propTypes = {
   data: PropTypes.object
 };
 
-ScreenListContainer.defaultProps = {
+ScreenList.defaultProps = {
   data: [{ id: 1 }, { id: 2 }]
 };
 
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
 
-export default connect(
+export const ScreenListContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScreenListContainer);
+)(ScreenList);

@@ -26,6 +26,11 @@ export const flexbox = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  columnTopCentered: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   }
 });
 

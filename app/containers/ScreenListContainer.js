@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
-import { containers } from '../theme/global-styles';
+import { containers, flexbox } from '../theme/global-styles';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
-import { MainStackNavigator } from '../navigators';
 
 export class ScreenList extends Component {
   state = { selected: {} };
@@ -19,31 +18,31 @@ export class ScreenList extends Component {
   };
 
   _onGoToProfilePress = () => {
-    console.log(this.props.navigation);
     this.props.navigation.navigate(SCREEN_PROFILE);
   };
 
   _onGoToSettingsPress = () => {
-    console.log(MainStackNavigator);
     this.props.navigation.navigate(SCREEN_SETTINGS);
   };
 
   _renderItem = ({ item }) => (
-    <TouchableHighlight onPress={this._onPressItem.bind(this, item.id)}>
+    <TouchableOpacity onPress={this._onPressItem.bind(this, item.id)}>
       <Text style={this.state.selected[item.id] ? s.red : s.black}>{item.id}</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 
   render() {
     return (
       <View style={[containers.containerMain]}>
-        <TouchableHighlight onPress={this._onGoToProfilePress}>
-          <Text>Go to profile</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._onGoToSettingsPress}>
-          <Text>Go to settings</Text>
-        </TouchableHighlight>
-        <FlatList data={this.props.data} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />
+        <View style={[s.flx_i, flexbox.columnTopCentered]}>
+          <TouchableOpacity onPress={this._onGoToProfilePress}>
+            <Text>Go to profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._onGoToSettingsPress}>
+            <Text>Go to settings</Text>
+          </TouchableOpacity>
+          <FlatList data={this.props.data} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />
+        </View>
       </View>
     );
   }

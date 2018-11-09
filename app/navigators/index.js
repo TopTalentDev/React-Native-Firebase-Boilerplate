@@ -10,7 +10,7 @@ import {
 import { DrawerActions } from 'react-navigation-drawer';
 import { styles as s } from 'react-native-style-tachyons';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN } from './screenNames';
+import { SCREEN_PROFILE, SCREEN_SETTINGS, SCREEN_LIST, SCREEN_LOGIN, SCREEN_STACK_HOME } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
 import { DrawerMainMenuContainer } from '../containers/DrawerMainMenuContainer';
@@ -155,7 +155,7 @@ export const AppNavigator = createSwitchNavigator(
       screen: ScreenLoginContainer,
       navigationOptions: { header: null }
     },
-    HomeStack: {
+    [SCREEN_STACK_HOME]: {
       screen: HomeStack,
       navigationOptions: { header: null }
     }

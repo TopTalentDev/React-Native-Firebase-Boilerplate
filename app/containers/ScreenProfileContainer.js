@@ -5,15 +5,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
-import { containers } from '../theme/global-styles';
+import { containers, flexbox } from '../theme/global-styles';
 
 export class ScreenProfile extends Component {
   render() {
     console.log(this.props.isInitialized);
     return (
       <View style={containers.containerMain}>
-        <Text style={s.f3}>Profile Details</Text>
-        <Text>{this.props.me.profile.name}</Text>
+        <View style={flexbox.columnCentered}>
+          <Text style={s.f3}>Profile Details</Text>
+          <Text>{this.props.me.profile.name}</Text>
+        </View>
       </View>
     );
   }

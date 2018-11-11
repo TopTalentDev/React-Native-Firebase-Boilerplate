@@ -26,6 +26,8 @@ import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.perf.RNFirebasePerformancePackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -42,19 +44,18 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFetchBlobPackage(),
             new VectorIconsPackage(),
             new RNSensitiveInfoPackage(),
-            new RNFirebasePackage(),
             new FastImageViewPackage(),
-          new RNFirebasePackage(),
-          new RNFirebasePackage(),
-          new RNFirebaseAdMobPackage(),
-          new RNFirebaseAnalyticsPackage(),
-          new RNFirebaseFirestorePackage(),
-          new RNFirebaseCrashlyticsPackage(),
-          new RNFirebaseDatabasePackage(),
-          new RNFirebaseRemoteConfigPackage(),
-          new RNFirebaseStoragePackage(),
-          new RNFirebaseNotificationsPackage(),
-          new RNFirebasePerformancePackage()
+            new RNFirebasePackage(),
+            new RNFirebaseAdMobPackage(),
+            new RNFirebaseAnalyticsPackage(),
+            new RNFirebaseFirestorePackage(),
+            new RNFirebaseCrashlyticsPackage(),
+            new RNFirebaseDatabasePackage(),
+            new RNFirebaseRemoteConfigPackage(),
+            new RNFirebaseStoragePackage(),
+            new RNFirebaseNotificationsPackage(),
+            new RNFirebasePerformancePackage(),
+            new RNFirebaseMessagingPackage()
       );
     }
 

@@ -30,8 +30,8 @@ export function* listenForAuthChange() {
 export function* loginAnonymously() {
   try {
     const auth = firebase.auth();
-    const user = yield call([auth, auth.signInAnonymously]);
-    yield put(actionCreators.setAuthChange(user));
+    const result = yield call([auth, auth.signInAnonymously]);
+    yield put(actionCreators.setAdditionalUserInfo(result.additionalUserInfo));
   } catch (error) {
     yield put(actionCreators.setAuthError(error));
   }
@@ -49,7 +49,8 @@ export function* login() {
 
 export function* logout() {
   try {
-    yield call(firebase.signOut);
+    const auth = firebase.auth();
+    yield call([auth, auth.signOut]);
   } catch (error) {
     yield put(actionCreators.setAuthError(error));
   }

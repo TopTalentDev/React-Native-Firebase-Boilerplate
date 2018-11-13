@@ -1,20 +1,28 @@
 import {
-  AUTH_CHANGE_SET,
+  AUTH_STATE_CHANGE_SET,
   AUTH_LOGOUT_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_ERROR_SET,
-  USER_ANONYMOUS_LOGIN_REQUEST
+  AUTH_ANONYMOUS_LOGIN_REQUEST,
+  AUTH_ADDITIONAL_USER_INFO_SET
 } from '../actionTypes';
 
 export function requestAnonymousLogin() {
   return {
-    type: USER_ANONYMOUS_LOGIN_REQUEST
+    type: AUTH_ANONYMOUS_LOGIN_REQUEST
+  };
+}
+
+export function setAdditionalUserInfo(data) {
+  return {
+    type: AUTH_ADDITIONAL_USER_INFO_SET,
+    payload: data
   };
 }
 
 export function setAuthChange(user) {
   return {
-    type: AUTH_CHANGE_SET,
+    type: AUTH_STATE_CHANGE_SET,
     payload: user
   };
 }

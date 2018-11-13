@@ -9,7 +9,6 @@ import { containers, layout, flexbox } from '../theme/global-styles';
 
 export class ScreenLogin extends Component {
   _onAnonymousLoginPress = () => {
-    //this.props.navigation.navigate(SCREEN_STACK_HOME);
     this.props.requestAnonymousLogin();
   };
   render() {

@@ -4,12 +4,19 @@ import {
   AUTH_LOGIN_REQUEST,
   AUTH_ERROR_SET,
   AUTH_ANONYMOUS_LOGIN_REQUEST,
-  AUTH_ADDITIONAL_USER_INFO_SET
+  AUTH_ADDITIONAL_USER_INFO_SET,
+  AUTH_FACEBOOK_LOGIN_REQUEST
 } from '../actionTypes';
 
 export function requestAnonymousLogin() {
   return {
     type: AUTH_ANONYMOUS_LOGIN_REQUEST
+  };
+}
+
+export function requestFacebookLogin() {
+  return {
+    type: AUTH_FACEBOOK_LOGIN_REQUEST
   };
 }
 

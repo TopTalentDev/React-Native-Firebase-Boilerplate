@@ -140,6 +140,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
     compile 'com.android.support:multidex:1.0.3'
     compile project(':rn-fetch-blob')
     compile project(':react-native-vector-icons')

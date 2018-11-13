@@ -33,6 +33,9 @@ target 'EMBPRNFirebaseBoilerplate' do
   pod 'glog', :podspec => "#{rn_path}/third-party-podspecs/glog.podspec"
   pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
 
+  # Facebook SDK
+  pod 'FacebookSDK'
+
   # Firebase
   pod 'Firebase/Core', '~> 5.11.0'
   pod 'Firebase/Auth', '~> 5.11.0'
@@ -54,6 +57,8 @@ target 'EMBPRNFirebaseBoilerplate' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   target 'EMBPRNFirebaseBoilerplateTests' do
     inherit! :search_paths

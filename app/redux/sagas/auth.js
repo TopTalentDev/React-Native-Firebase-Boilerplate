@@ -1,7 +1,13 @@
 import firebase from 'react-native-firebase';
+import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { eventChannel } from 'redux-saga';
 import { take, call, put, fork, takeEvery } from 'redux-saga/effects';
-import { AUTH_ANONYMOUS_LOGIN_REQUEST, AUTH_LOGIN_REQUEST, AUTH_LOGOUT_REQUEST } from '../actionTypes';
+import {
+  AUTH_ANONYMOUS_LOGIN_REQUEST,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGOUT_REQUEST,
+  AUTH_FACEBOOK_LOGIN_REQUEST
+} from '../actionTypes';
 import actionCreators from '../actions';
 
 export function authListener() {
@@ -37,6 +43,30 @@ export function* loginAnonymously() {
   }
 }
 
+export function* loginWithFacebook() {
+  try {
+    const auth = firebase.auth();
+    const loginResult = yield call([LoginManager, LoginManager.logInWithReadPermissions], ['public_profile', 'email']);
+
+    if (loginResult.isCancelled) {
+      yield put(actionCreators.setAuthError('User cancelled request'));
+      return;
+    }
+
+    const data = yield call([AccessToken, AccessToken.getCurrentAccessToken]);
+
+    if (!data || !data.accessToken) {
+      yield put(actionCreators.setAuthError('Something went wrong attempting to get FB access token.'));
+      return;
+    }
+
+    const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+    yield call([auth, auth.signInWithCredential], credential);
+  } catch (error) {
+    yield put(actionCreators.setAuthError(error));
+  }
+}
+
 export function* login() {
   try {
     // Add login logic here
@@ -58,6 +88,7 @@ export function* logout() {
 
 export function* watchInitializationRequest() {
   yield takeEvery(AUTH_ANONYMOUS_LOGIN_REQUEST, loginAnonymously);
+  yield takeEvery(AUTH_FACEBOOK_LOGIN_REQUEST, loginWithFacebook);
   yield takeEvery(AUTH_LOGIN_REQUEST, login);
   yield takeEvery(AUTH_LOGOUT_REQUEST, logout);
 }

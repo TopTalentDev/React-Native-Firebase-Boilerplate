@@ -8,6 +8,7 @@ export const AUTH_ERROR_SET = `${APP_NAME}/auth/ERROR_SET`;
 export const AUTH_LOGIN_REQUEST = `${APP_NAME}/auth/LOGIN_REQUEST`;
 export const AUTH_LOGOUT_REQUEST = `${APP_NAME}/auth/LOGOUT_REQUEST`;
 export const AUTH_ANONYMOUS_LOGIN_REQUEST = `${APP_NAME}/auth/ANONYMOUS_LOGIN_REQUEST`;
+export const AUTH_FACEBOOK_LOGIN_REQUEST = `${APP_NAME}/auth/FACEBOOK_LOGIN_REQUEST`;
 export const PERMISSIONS_ALL_GET = `${APP_NAME}/permissions/ALL_GET`;
 export const PERMISSIONS_REQUEST = `${APP_NAME}/permissions/REQUEST`;
 export const PERMISSIONS_ALL_SET = `${APP_NAME}/permissions/ALL_SET`;

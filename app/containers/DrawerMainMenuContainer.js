@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { View, TouchableOpacity, ScrollView, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DrawerItems, SafeAreaView } from 'react-navigation';
-import _ from 'lodash';
 import { styles as s } from 'react-native-style-tachyons';
 import { elevations } from '../theme/global-styles';
 import Avatar from '../components/Avatar';
@@ -17,14 +16,14 @@ export class DrawerMainMenu extends Component {
     return (
       <ScrollView style={[elevations.e_10, s.f, s.flx_i, s.bg_black]}>
         <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-          <View style={[s.f, s.flx_row, s.bg_darkGray, s.pa2]}>
-            {!_.isEmpty(me) && (
-              <View>
-                <Avatar user={me} />
-              </View>
-            )}
-            <TouchableOpacity onPress={this._onSettingsPressed}>
-              <Icon name="cogs" size={20} style={s.white} />
+          <View style={[s.f, s.flx_row, s.bg_darkGray, s.pa2, s.jcsb, s.aic]}>
+            <View>
+              <Avatar user={me} />
+            </View>
+
+            <TouchableOpacity style={[s.flx_row]} onPress={this.props.requestLogout}>
+              <Text style={[s.white, s.pr2]}>Log Out</Text>
+              <Icon name="ios-log-out" size={20} style={s.white} />
             </TouchableOpacity>
           </View>
 

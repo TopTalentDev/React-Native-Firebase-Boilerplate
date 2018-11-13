@@ -28,6 +28,8 @@ import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.perf.RNFirebasePerformancePackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -46,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSensitiveInfoPackage(),
             new FastImageViewPackage(),
             new RNFirebasePackage(),
+            new RNFirebaseAuthPackage(),
             new RNFirebaseAdMobPackage(),
             new RNFirebaseAnalyticsPackage(),
             new RNFirebaseFirestorePackage(),
@@ -73,6 +76,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

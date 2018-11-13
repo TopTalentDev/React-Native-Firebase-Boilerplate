@@ -1,15 +1,16 @@
 import { REHYDRATE } from 'redux-persist';
-import { USER_LOGIN_SUCCESS_SET, USER_LOGOUT_REQUEST } from '../actionTypes';
+import { AUTH_CHANGE_SET, AUTH_LOGOUT_REQUEST } from '../actionTypes';
 
-export function me(state = { password: null, profile: { name: 'none' } }, action) {
+// Auth is not persisted by Redux because persistence is handled by firebase directly
+export function auth(state = {}, action) {
   switch (action.type) {
     case REHYDRATE: {
       return { ...state };
     }
-    case USER_LOGIN_SUCCESS_SET: {
-      return { ...state, password: action.payload.password, profile: action.payload.me };
+    case AUTH_CHANGE_SET: {
+      return { ...state, user: action.payload.user };
     }
-    case USER_LOGOUT_REQUEST:
+    case AUTH_LOGOUT_REQUEST:
       return {};
   }
   return state;

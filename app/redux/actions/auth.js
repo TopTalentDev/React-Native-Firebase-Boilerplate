@@ -1,27 +1,39 @@
-import { USER_LOGIN_SUCCESS_SET, USER_LOGOUT_REQUEST, USER_LOGIN_REQUEST, USER_LOGIN_ERROR_SET } from '../actionTypes';
+import {
+  AUTH_CHANGE_SET,
+  AUTH_LOGOUT_REQUEST,
+  AUTH_LOGIN_REQUEST,
+  AUTH_ERROR_SET,
+  USER_ANONYMOUS_LOGIN_REQUEST
+} from '../actionTypes';
 
-export function setLoginSuccess(password, me) {
+export function requestAnonymousLogin() {
   return {
-    type: USER_LOGIN_SUCCESS_SET,
-    payload: { password, me }
+    type: USER_ANONYMOUS_LOGIN_REQUEST
   };
 }
 
-export function setLoginError(error) {
+export function setAuthChange(user) {
   return {
-    type: USER_LOGIN_ERROR_SET,
+    type: AUTH_CHANGE_SET,
+    payload: user
+  };
+}
+
+export function setAuthError(error) {
+  return {
+    type: AUTH_ERROR_SET,
     payload: error
   };
 }
 
 export function requestLogin() {
   return {
-    type: USER_LOGIN_REQUEST
+    type: AUTH_LOGIN_REQUEST
   };
 }
 
 export function requestLogout() {
   return {
-    type: USER_LOGOUT_REQUEST
+    type: AUTH_LOGOUT_REQUEST
   };
 }

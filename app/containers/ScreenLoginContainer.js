@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, layout, flexbox } from '../theme/global-styles';
-import { SCREEN_STACK_HOME } from '../navigators/screenNames';
 
 export class ScreenLogin extends Component {
-  _onLoginPress = () => {
-    this.props.navigation.navigate(SCREEN_STACK_HOME);
+  _onAnonymousLoginPress = () => {
+    //this.props.navigation.navigate(SCREEN_STACK_HOME);
+    this.props.requestAnonymousLogin();
   };
   render() {
     return (
@@ -24,8 +24,8 @@ export class ScreenLogin extends Component {
             textContentType="password"
             secureTextEntry={true}
           />
-          <TouchableOpacity style={s.pa2} onPress={this._onLoginPress}>
-            <Text>Log In</Text>
+          <TouchableOpacity style={s.pa2} onPress={this._onAnonymousLoginPress}>
+            <Text>Continue without logging in</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -36,7 +36,8 @@ export class ScreenLogin extends Component {
 ScreenLogin.propTypes = {
   me: PropTypes.object,
   isInitialized: PropTypes.bool,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  requestAnonymousLogin: PropTypes.func
 };
 
 const mapStateToProps = state => ({

@@ -5,7 +5,9 @@ import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { permissions } from './permissions';
 import { notifications } from './notifications';
 import { app, initialization } from './app';
-import { me } from './auth';
+import { sensitiveData } from './sensitiveData';
+import { auth } from './auth';
+import { errors } from './errors';
 
 const sensitiveStorage = createSensitiveStorage({
   keychainService: 'REPLACE_WITH_APP_NAME_OR_OTHER_KEY',
@@ -13,8 +15,8 @@ const sensitiveStorage = createSensitiveStorage({
   encrypt: true
 });
 
-const mePersistConfig = {
-  key: 'me',
+const sensitiveDataPersistConfig = {
+  key: 'sensitiveData',
   storage: sensitiveStorage
 };
 
@@ -27,10 +29,12 @@ const createFileSystemStorage = key => {
 
 export default () => {
   return combineReducers({
-    me: persistReducer(mePersistConfig, me),
+    sensitiveData: persistReducer(sensitiveDataPersistConfig, sensitiveData),
     app: persistReducer(createFileSystemStorage('app'), app),
+    auth,
     notifications,
     permissions,
-    initialization
+    initialization,
+    errors
   });
 };

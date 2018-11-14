@@ -140,7 +140,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-fbsdk')
     compile 'com.android.support:multidex:1.0.3'
     compile project(':rn-fetch-blob')
     compile project(':react-native-vector-icons')
@@ -149,6 +148,10 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    //Facebook SDK
+    implementation project(':react-native-fbsdk')
+    implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
 
      // Firebase dependencies
     implementation project(':react-native-firebase')

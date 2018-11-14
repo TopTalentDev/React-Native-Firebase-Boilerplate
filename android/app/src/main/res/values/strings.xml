@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EMBPRNFirebaseBoilerplate</string>
+    <string name="facebook_app_id">683420672057471</string>
 </resources>

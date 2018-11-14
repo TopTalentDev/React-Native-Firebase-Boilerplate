@@ -18,7 +18,9 @@ import {
   SCREEN_STACK_HOME,
   SCREEN_TABBED1,
   SCREEN_TABBED_MAIN,
-  SCREEN_TABBED2
+  SCREEN_TABBED2,
+  SCREEN_STACK_AUTH,
+  SCREEN_REGISTER
 } from './screenNames';
 import { ScreenProfileContainer } from '../containers/ScreenProfileContainer';
 import { ScreenSettingsContainer } from '../containers/ScreenSettingsContainer';
@@ -28,6 +30,7 @@ import { ScreenLoginContainer } from '../containers/ScreenLoginContainer';
 import colors from '../theme/colors';
 import { ScreenTabbed1Container } from '../containers/ScreenTabbed1Container';
 import { ScreenTabbed2Container } from '../containers/ScreenTabbed2Container';
+import { ScreenRegisterContainer } from '../containers/ScreenRegisterContainer';
 
 const renderMenuButton = (focused, tintColor, navigation) => {
   return (
@@ -161,10 +164,20 @@ export const HomeStack = createStackNavigator({
   }
 });
 
+export const AuthStack = createStackNavigator({
+  [SCREEN_LOGIN]: {
+    screen: ScreenLoginContainer,
+    navigationOptions: { header: null }
+  },
+  [SCREEN_REGISTER]: {
+    screen: ScreenRegisterContainer
+  }
+});
+
 export const AppNavigator = createSwitchNavigator(
   {
-    [SCREEN_LOGIN]: {
-      screen: ScreenLoginContainer,
+    [SCREEN_STACK_AUTH]: {
+      screen: AuthStack,
       navigationOptions: { header: null }
     },
     [SCREEN_STACK_HOME]: {
@@ -173,6 +186,6 @@ export const AppNavigator = createSwitchNavigator(
     }
   },
   {
-    initialRouteName: SCREEN_LOGIN
+    initialRouteName: SCREEN_STACK_AUTH
   }
 );

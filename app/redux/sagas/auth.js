@@ -6,7 +6,8 @@ import {
   AUTH_ANONYMOUS_LOGIN_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGOUT_REQUEST,
-  AUTH_FACEBOOK_LOGIN_REQUEST
+  AUTH_FACEBOOK_LOGIN_REQUEST,
+  AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST
 } from '../actionTypes';
 import actionCreators from '../actions';
 
@@ -30,6 +31,15 @@ export function* listenForAuthChange() {
     } else if (payload.user) {
       yield put(actionCreators.setAuthChange(payload.user));
     }
+  }
+}
+
+export function* createUserWithEmailAndPassword(action) {
+  try {
+    const auth = firebase.auth();
+    yield call([auth, auth.createUserWithEmailAndPassword], action.payload.email, action.payload.password);
+  } catch (error) {
+    yield put(actionCreators.setAuthError(error.toString()));
   }
 }
 
@@ -67,13 +77,12 @@ export function* loginWithFacebook() {
   }
 }
 
-export function* login() {
+export function* login(action) {
   try {
-    // Add login logic here
-
-    yield put(actionCreators.setLoginSuccess('', {}));
+    const auth = firebase.auth();
+    yield call([auth, auth.signInWithEmailAndPassword], action.payload.email, action.payload.password);
   } catch (error) {
-    yield put(actionCreators.setAuthError(error));
+    yield put(actionCreators.setAuthError(error.toString()));
   }
 }
 
@@ -89,6 +98,7 @@ export function* logout() {
 export function* watchInitializationRequest() {
   yield takeEvery(AUTH_ANONYMOUS_LOGIN_REQUEST, loginAnonymously);
   yield takeEvery(AUTH_FACEBOOK_LOGIN_REQUEST, loginWithFacebook);
+  yield takeEvery(AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST, createUserWithEmailAndPassword);
   yield takeEvery(AUTH_LOGIN_REQUEST, login);
   yield takeEvery(AUTH_LOGOUT_REQUEST, logout);
 }

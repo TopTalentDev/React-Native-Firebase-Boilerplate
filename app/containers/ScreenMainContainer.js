@@ -5,14 +5,14 @@ import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import actionCreators from '../redux/actions';
 import { AppNavigator } from '../navigators';
-import { SCREEN_STACK_HOME, SCREEN_LOGIN } from '../navigators/screenNames';
+import { SCREEN_STACK_HOME, SCREEN_STACK_AUTH } from '../navigators/screenNames';
 
 export class ScreenMain extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.auth.user && !prevProps.auth.user) {
       this._navigator.dispatch(NavigationActions.navigate({ routeName: SCREEN_STACK_HOME }));
     } else if (!this.props.auth.user && prevProps.auth.user) {
-      this._navigator.dispatch(NavigationActions.navigate({ routeName: SCREEN_LOGIN }));
+      this._navigator.dispatch(NavigationActions.navigate({ routeName: SCREEN_STACK_AUTH }));
     }
   }
   render() {

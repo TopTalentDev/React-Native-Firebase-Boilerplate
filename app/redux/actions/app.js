@@ -1,4 +1,10 @@
-import { APP_INITIALIZE_REQUEST, APP_INITIALIZED_SET, APP_INITIALIZE_ERROR } from '../actionTypes';
+import {
+  APP_INITIALIZE_REQUEST,
+  APP_INITIALIZED_SET,
+  APP_INITIALIZE_ERROR,
+  ERROR_CLEAR,
+  ERROR_CLEAR_ALL
+} from '../actionTypes';
 
 export function requestAppInitialize() {
   return {
@@ -16,5 +22,18 @@ export function setAppInitializeError(error) {
 export function setAppAsInitialized() {
   return {
     type: APP_INITIALIZED_SET
+  };
+}
+
+export function clearError(key) {
+  return {
+    type: ERROR_CLEAR,
+    payload: key
+  };
+}
+
+export function clearAllErrors() {
+  return {
+    type: ERROR_CLEAR_ALL
   };
 }

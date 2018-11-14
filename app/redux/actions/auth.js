@@ -5,12 +5,20 @@ import {
   AUTH_ERROR_SET,
   AUTH_ANONYMOUS_LOGIN_REQUEST,
   AUTH_ADDITIONAL_USER_INFO_SET,
-  AUTH_FACEBOOK_LOGIN_REQUEST
+  AUTH_FACEBOOK_LOGIN_REQUEST,
+  AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST
 } from '../actionTypes';
 
 export function requestAnonymousLogin() {
   return {
     type: AUTH_ANONYMOUS_LOGIN_REQUEST
+  };
+}
+
+export function requestUserCreateWithEmailAndPassword(email, password) {
+  return {
+    type: AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST,
+    payload: { email, password }
   };
 }
 
@@ -41,9 +49,10 @@ export function setAuthError(error) {
   };
 }
 
-export function requestLogin() {
+export function requestLogin(email, password) {
   return {
-    type: AUTH_LOGIN_REQUEST
+    type: AUTH_LOGIN_REQUEST,
+    payload: { email, password }
   };
 }
 

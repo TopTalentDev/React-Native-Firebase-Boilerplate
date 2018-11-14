@@ -11,6 +11,10 @@ import Avatar from '../components/Avatar';
 import actionCreators from '../redux/actions';
 
 export class DrawerMainMenu extends Component {
+  _requestLogout = () => {
+    this.props.clearAllErrors();
+    this.props.requestLogout();
+  };
   render() {
     const { me } = this.props;
     return (
@@ -21,7 +25,7 @@ export class DrawerMainMenu extends Component {
               <Avatar user={me} />
             </View>
 
-            <TouchableOpacity style={[s.flx_row]} onPress={this.props.requestLogout}>
+            <TouchableOpacity style={[s.flx_row]} onPress={this._requestLogout}>
               <Text style={[s.white, s.pr2]}>Log Out</Text>
               <Icon name="ios-log-out" size={20} style={s.white} />
             </TouchableOpacity>
@@ -36,7 +40,9 @@ export class DrawerMainMenu extends Component {
 
 DrawerMainMenu.propTypes = {
   navigation: PropTypes.object,
-  me: PropTypes.object
+  me: PropTypes.object,
+  requestLogout: PropTypes.func,
+  clearError: PropTypes.func
 };
 
 const mapStateToProps = state => ({

@@ -44,6 +44,16 @@
     "@storybook/addon-links": "3.4.11",
     "@storybook/addons": "3.4.11",
     "@storybook/react-native": "3.4.11",
+    "@types/jest": "^23.3.9",
+    "@types/react": "^16.7.6",
+    "@types/react-native": "^0.57.9",
+    "@types/react-native-vector-icons": "^4.6.4",
+    "@types/react-navigation": "^2.13.1",
+    "@types/react-redux": "^6.0.9",
+    "@types/react-test-renderer": "^16.0.3",
+    "@types/redux-actions": "^2.3.1",
+    "@types/redux-logger": "^3.0.6",
+    "@types/redux-persist": "^4.3.1",
     "babel-core": "6.26.3",
     "babel-eslint": "10.0.1",
     "babel-jest": "23.6.0",
@@ -63,16 +73,28 @@
     "prettier": "1.14.3",
     "prop-types": "15.6.2",
     "react-dom": "16.5.0",
-    "react-test-renderer": "16.5.0"
+    "react-native-typescript-transformer": "^1.2.10",
+    "react-test-renderer": "16.5.0",
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6"
   },
   "jest": {
     "preset": "react-native",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|redux-persist-sensitive-storage|redux-persist)"
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
     ],
-    "globals": {
-      "window": true
-    }
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
   },
   "lint-staged": {
     "app/**/*.{js,jsx,json}": [

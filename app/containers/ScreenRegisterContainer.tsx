@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+//@ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, layout, flexbox } from '../theme/global-styles';
 
-export class ScreenRegister extends Component {
-  constructor(props) {
+interface Props {
+  isInitialized: boolean
+  navigation: any
+  authError: string
+  requestUserCreateWithEmailAndPassword: Function
+  clearError: Function
+}
+
+interface State {
+  email: string | undefined
+  password: string | undefined
+}
+
+export class ScreenRegister extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.state = { email: null, password: null };
+    this.state = { email: undefined, password: undefined };
   }
 
   _onRegisterPress = () => {
@@ -18,11 +31,11 @@ export class ScreenRegister extends Component {
     this.props.requestUserCreateWithEmailAndPassword(this.state.email, this.state.password);
   };
 
-  _onEmailChange = email => {
+  _onEmailChange = (email: string) => {
     this.setState({ email });
   };
 
-  _onPasswordChange = password => {
+  _onPasswordChange = (password: string) => {
     this.setState({ password });
   };
 
@@ -56,20 +69,11 @@ export class ScreenRegister extends Component {
   }
 }
 
-ScreenRegister.propTypes = {
-  me: PropTypes.object,
-  isInitialized: PropTypes.bool,
-  navigation: PropTypes.object,
-  authError: PropTypes.string,
-  requestUserCreateWithEmailAndPassword: PropTypes.func,
-  clearError: PropTypes.func
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   authError: state.errors.authError
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
 export const ScreenRegisterContainer = connect(
   mapStateToProps,

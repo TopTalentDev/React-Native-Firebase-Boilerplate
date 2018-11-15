@@ -1,38 +1,36 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+//@ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 
-export class ScreenTabbed1 extends Component {
+interface Props {
+  navigation: any;
+}
+
+export class ScreenTabbed2 extends Component<Props> {
   render() {
     return (
       <View style={[containers.containerMain]}>
         <View style={flexbox.columnCentered}>
-          <Text style={[s.f3, s.mb5]}>Screen Tabbed 1</Text>
+          <Text style={[s.f3, s.mb5]}>Screen Tabbed 2</Text>
         </View>
       </View>
     );
   }
 }
 
-ScreenTabbed1.propTypes = {
-  me: PropTypes.object,
-  isInitialized: PropTypes.bool,
-  navigation: PropTypes.object
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   me: state.me,
   isInitialized: state.initialization.isInitialized
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
-export const ScreenTabbed1Container = connect(
+export const ScreenTabbed2Container = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScreenTabbed1);
+)(ScreenTabbed2);

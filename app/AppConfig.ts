@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+// @ts-ignore
 import NativeTachyons from 'react-native-style-tachyons';
 import colors from './theme/colors';
 import fonts from './theme/fonts';

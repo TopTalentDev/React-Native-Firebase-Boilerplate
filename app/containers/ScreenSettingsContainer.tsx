@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+//@ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 
-export class ScreenSettings extends Component {
+interface Props {
+  app: any
+};
+
+export class ScreenSettings extends Component<Props> {
   render() {
     return (
       <View style={containers.containerMain}>
@@ -19,15 +23,11 @@ export class ScreenSettings extends Component {
   }
 }
 
-ScreenSettings.propTypes = {
-  app: PropTypes.object
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   app: state.app
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
 export const ScreenSettingsContainer = connect(
   mapStateToProps,

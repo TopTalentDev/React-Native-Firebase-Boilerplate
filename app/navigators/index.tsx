@@ -32,7 +32,8 @@ import { ScreenTabbed1Container } from '../containers/ScreenTabbed1Container';
 import { ScreenTabbed2Container } from '../containers/ScreenTabbed2Container';
 import { ScreenRegisterContainer } from '../containers/ScreenRegisterContainer';
 
-const renderMenuButton = (focused, tintColor, navigation) => {
+const renderMenuButton = (focused: boolean, tintColor: string, navigation: any) => {
+  //
   return (
     <TouchableHighlight onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
       <Icon style={s.ml2} name="ios-menu" size={30} color={tintColor} />
@@ -40,7 +41,7 @@ const renderMenuButton = (focused, tintColor, navigation) => {
   );
 };
 
-const renderBackButton = (focused, tintColor, navigation) => {
+const renderBackButton = (focused: boolean, tintColor: string, navigation: any) => {
   return (
     <TouchableHighlight onPress={() => navigation.dispatch(NavigationActions.back())}>
       <Text style={[{ color: tintColor }, s.ml2]}>Back</Text>
@@ -54,8 +55,16 @@ export const BottomTabNavigator = createBottomTabNavigator(
     [SCREEN_TABBED2]: ScreenTabbed2Container
   },
   {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+    navigationOptions: ({ navigation }: { navigation: any }) => ({
+      tabBarIcon: ({
+        focused,
+        horizontal,
+        tintColor
+      }: {
+        focused: boolean;
+        horizontal: boolean;
+        tintColor: string;
+      }) => {
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === SCREEN_TABBED1) {
@@ -79,9 +88,10 @@ export const MainStackNavigator = createStackNavigator(
   {
     [SCREEN_LIST]: {
       screen: ScreenListContainer,
-      navigationOptions: ({ navigation }) => {
+      navigationOptions: ({ navigation }: { navigation: any }) => {
         return {
-          headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+          headerLeft: ({ focused, tintColor }: { focused: boolean; tintColor: string }) =>
+            renderMenuButton(focused, tintColor, navigation)
         };
       }
     },
@@ -101,9 +111,10 @@ export const MainStackNavigator = createStackNavigator(
 export const ScreenProfileNavigator = createStackNavigator({
   [SCREEN_PROFILE]: {
     screen: ScreenProfileContainer,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: ({ navigation }: { navigation: any }) => {
       return {
-        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+        headerLeft: ({ focused, tintColor }: { focused: boolean; tintColor: string }) =>
+          renderMenuButton(focused, tintColor, navigation)
       };
     }
   }
@@ -112,9 +123,10 @@ export const ScreenProfileNavigator = createStackNavigator({
 export const ScreenSettingsNavigator = createStackNavigator({
   [SCREEN_SETTINGS]: {
     screen: ScreenSettingsContainer,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: ({ navigation }: { navigation: any }) => {
       return {
-        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+        headerLeft: ({ focused, tintColor }: { focused: boolean; tintColor: string }) =>
+          renderMenuButton(focused, tintColor, navigation)
       };
     }
   }
@@ -123,9 +135,10 @@ export const ScreenSettingsNavigator = createStackNavigator({
 export const ScreenTabbedNavigator = createStackNavigator({
   [SCREEN_TABBED_MAIN]: {
     screen: BottomTabNavigator,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: ({ navigation }: { navigation: any }) => {
       return {
-        headerLeft: ({ focused, tintColor }) => renderMenuButton(focused, tintColor, navigation)
+        headerLeft: ({ focused, tintColor }: { focused: boolean; tintColor: string }) =>
+          renderMenuButton(focused, tintColor, navigation)
       };
     }
   }

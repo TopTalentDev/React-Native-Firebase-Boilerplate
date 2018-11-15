@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, ScrollView, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { DrawerItems, SafeAreaView } from 'react-navigation';
+// @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import { elevations } from '../theme/global-styles';
 import Avatar from '../components/Avatar';
 import actionCreators from '../redux/actions';
 
-export class DrawerMainMenu extends Component {
+interface Props {
+  navigation: any
+  auth: any
+  requestLogout: Function
+  clearError: Function
+  clearAllErrors: Function
+}
+
+export class DrawerMainMenu extends Component<Props> {
   _requestLogout = () => {
     this.props.clearAllErrors();
     this.props.requestLogout();
   };
   render() {
-    const { me } = this.props;
+    const { auth } = this.props;
     return (
       <ScrollView style={[elevations.e_10, s.f, s.flx_i, s.bg_black]}>
         <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
           <View style={[s.f, s.flx_row, s.bg_darkGray, s.pa2, s.jcsb, s.aic]}>
             <View>
-              <Avatar user={me} />
+              <Avatar user={auth.user} />
             </View>
 
             <TouchableOpacity style={[s.flx_row]} onPress={this._requestLogout}>
@@ -38,18 +46,11 @@ export class DrawerMainMenu extends Component {
   }
 }
 
-DrawerMainMenu.propTypes = {
-  navigation: PropTypes.object,
-  me: PropTypes.object,
-  requestLogout: PropTypes.func,
-  clearError: PropTypes.func
-};
-
-const mapStateToProps = state => ({
-  me: state.me
+const mapStateToProps = (state: any) => ({
+  auth: state.auth
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
 export const DrawerMainMenuContainer = connect(
   mapStateToProps,

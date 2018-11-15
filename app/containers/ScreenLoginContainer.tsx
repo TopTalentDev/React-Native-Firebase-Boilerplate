@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+// @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, layout, flexbox } from '../theme/global-styles';
 import { SCREEN_REGISTER } from '../navigators/screenNames';
 
-export class ScreenLogin extends Component {
-  constructor(props) {
+interface Props {
+  me: any
+  isInitialized: boolean
+  navigation: any
+  authError: string
+  requestAnonymousLogin: Function
+  requestFacebookLogin: Function
+  requestLogin: Function
+  clearError: Function
+};
+
+interface State {
+  email: string | null
+  password: string | null
+}
+
+export class ScreenLogin extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = { email: null, password: null };
   }
-  _onEmailChange = email => {
+  _onEmailChange = (email: string) => {
     this.setState({ email });
   };
-
-  _onPasswordChange = password => {
+  _onPasswordChange = (password: string) => {
     this.setState({ password });
   };
   _onAnonymousLoginPress = () => {
@@ -63,12 +79,14 @@ export class ScreenLogin extends Component {
             <Text style={[s.white]}>Continue with facebook</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={s.pa2} onPress={this._onAnonymousLoginPress}>
-            <Text>Continue without logging in</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity style={s.pa2} onPress={this._onRegisterPress}>
             <Text>Press to register</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity style={s.pa2} onPress={this._onAnonymousLoginPress}>
+            <Text>Continue without logging in</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -76,24 +94,13 @@ export class ScreenLogin extends Component {
   }
 }
 
-ScreenLogin.propTypes = {
-  me: PropTypes.object,
-  isInitialized: PropTypes.bool,
-  navigation: PropTypes.object,
-  authError: PropTypes.string,
-  requestAnonymousLogin: PropTypes.func,
-  requestFacebookLogin: PropTypes.func,
-  requestLogin: PropTypes.func,
-  clearError: PropTypes.func
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   me: state.me,
   isInitialized: state.initialization.isInitialized,
   authError: state.errors.authError
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
 export const ScreenLoginContainer = connect(
   mapStateToProps,

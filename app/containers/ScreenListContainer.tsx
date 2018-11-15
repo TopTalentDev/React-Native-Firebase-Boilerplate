@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+// @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
 
-export class ScreenList extends Component {
-  state = { selected: {} };
+interface Props {
+  data: any[];
+  navigation?: any;
+}
+
+interface State {
+  selected: any;
+}
+
+export class ScreenList extends Component<Props, State> {
+  state: State = { selected: {} };
+
+  static defaultProps: Props = {
+    data: []
+  };
 
   _keyExtractor = item => item.id;
 
-  _onPressItem = id => {
+  _onPressItem = (id: string) => {
     this.setState({ selected: { ...this.state.selected, [id]: !this.state.selected[id] } });
   };
 
@@ -25,7 +39,7 @@ export class ScreenList extends Component {
     this.props.navigation.navigate(SCREEN_SETTINGS);
   };
 
-  _renderItem = ({ item }) => (
+  _renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity onPress={this._onPressItem.bind(this, item.id)}>
       <Text style={this.state.selected[item.id] ? s.red : s.black}>{item.id}</Text>
     </TouchableOpacity>
@@ -48,22 +62,13 @@ export class ScreenList extends Component {
   }
 }
 
-ScreenList.propTypes = {
-  data: PropTypes.array,
-  navigation: PropTypes.object
-};
-
-ScreenList.defaultProps = {
-  data: []
-};
-
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
   return {
     data: [{ id: '1' }, { id: '2' }]
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
 
 export const ScreenListContainer = connect(
   mapStateToProps,

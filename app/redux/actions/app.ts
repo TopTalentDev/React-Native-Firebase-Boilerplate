@@ -12,7 +12,7 @@ export function requestAppInitialize() {
   };
 }
 
-export function setAppInitializeError(error) {
+export function setAppInitializeError(error: string) {
   return {
     type: APP_INITIALIZE_ERROR,
     payload: error

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 
-export class ScreenProfile extends Component {
+interface Props {
+  me?: any
+  isInitialized?: boolean
+}
+
+export class ScreenProfile extends Component<Props> {
   render() {
-    console.log(this.props.isInitialized);
     return (
       <View style={containers.containerMain}>
         <View style={flexbox.columnCentered}>
@@ -21,18 +25,12 @@ export class ScreenProfile extends Component {
   }
 }
 
-ScreenProfile.propTypes = {
-  me: PropTypes.object,
-  isInitialized: PropTypes.bool
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   me: state.me,
   isInitialized: state.initialization.isInitialized
 });
 
-const mapDispatchToProps = dispatch => {
-  console.log('MAP DISPATCH');
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators(actionCreators, dispatch);
 };
 

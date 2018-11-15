@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
-import { applyMiddleware, createStore, compose } from 'redux';
-import { persistStore } from 'redux-persist';
+import { applyMiddleware, createStore, compose, Store } from 'redux';
+import { persistStore, Persistor } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
-import { PersistGate } from 'redux-persist/es/integration/react';
+import { PersistGate } from 'redux-persist/integration/react';
 import getCombinedReducers from './reducers';
 import sagas from './sagas';
 import { requestAppInitialize } from './actions/app';
@@ -14,12 +13,16 @@ const logger = createLogger({
   predicate: () => __DEV__
 });
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(getCombinedReducers(), {}, compose(applyMiddleware(sagaMiddleware, logger)));
-const persistor = persistStore(store, { throttle: 2000 }, () => store.dispatch(requestAppInitialize()));
+const store: Store = createStore(getCombinedReducers(), {}, compose(applyMiddleware(sagaMiddleware, logger)));
+const persistor: Persistor = persistStore(store, { throttle: 2000 }, () => store.dispatch(requestAppInitialize()));
 
 sagaMiddleware.run(sagas);
 
-export class ReduxStore extends Component {
+export interface Props {
+  children: any
+}
+
+export class ReduxStore extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
@@ -28,7 +31,3 @@ export class ReduxStore extends Component {
     );
   }
 }
-
-ReduxStore.propTypes = {
-  children: PropTypes.any
-};

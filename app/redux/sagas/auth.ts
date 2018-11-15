@@ -10,11 +10,12 @@ import {
   AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST
 } from '../actionTypes';
 import actionCreators from '../actions';
+import { Auth } from 'react-native-firebase/auth';
 
 export function authListener() {
-  const auth = firebase.auth();
+  const auth: Auth = firebase.auth();
   return eventChannel(emit => {
-    const unsubscribe = auth.onAuthStateChanged(user => emit({ user }), error => emit({ error }));
+    const unsubscribe = auth.onAuthStateChanged((user: any) => emit({ user }));
     return unsubscribe;
   });
 }
@@ -36,7 +37,7 @@ export function* listenForAuthChange() {
 
 export function* createUserWithEmailAndPassword(action) {
   try {
-    const auth = firebase.auth();
+    const auth: Auth = firebase.auth();
     yield call([auth, auth.createUserWithEmailAndPassword], action.payload.email, action.payload.password);
   } catch (error) {
     yield put(actionCreators.setAuthError(error.toString()));
@@ -45,7 +46,7 @@ export function* createUserWithEmailAndPassword(action) {
 
 export function* loginAnonymously() {
   try {
-    const auth = firebase.auth();
+    const auth: Auth = firebase.auth();
     const result = yield call([auth, auth.signInAnonymously]);
     yield put(actionCreators.setAdditionalUserInfo(result.additionalUserInfo));
   } catch (error) {
@@ -55,7 +56,7 @@ export function* loginAnonymously() {
 
 export function* loginWithFacebook() {
   try {
-    const auth = firebase.auth();
+    const auth: Auth = firebase.auth();
     const loginResult = yield call([LoginManager, LoginManager.logInWithReadPermissions], ['public_profile', 'email']);
 
     if (loginResult.isCancelled) {
@@ -79,7 +80,7 @@ export function* loginWithFacebook() {
 
 export function* login(action) {
   try {
-    const auth = firebase.auth();
+    const auth: Auth = firebase.auth();
     yield call([auth, auth.signInWithEmailAndPassword], action.payload.email, action.payload.password);
   } catch (error) {
     yield put(actionCreators.setAuthError(error.toString()));
@@ -88,7 +89,7 @@ export function* login(action) {
 
 export function* logout() {
   try {
-    const auth = firebase.auth();
+    const auth: Auth = firebase.auth();
     yield call([auth, auth.signOut]);
   } catch (error) {
     yield put(actionCreators.setAuthError(error));

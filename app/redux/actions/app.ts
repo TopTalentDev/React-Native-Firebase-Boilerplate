@@ -1,39 +1,61 @@
 import {
-  APP_INITIALIZE_REQUEST,
-  APP_INITIALIZED_SET,
-  APP_INITIALIZE_ERROR,
-  ERROR_CLEAR,
-  ERROR_CLEAR_ALL
+  AppActionTypes,
+  ErrorActionTypes
 } from '../actionTypes';
+import { ActionCreator, Action } from 'redux';
 
-export function requestAppInitialize() {
+export interface RequestAppInitialize extends Action {
+  type: AppActionTypes.APP_INITIALIZE_REQUEST
+}
+
+export interface SetAppInitializeError extends Action {
+  type: AppActionTypes.APP_INITIALIZE_ERROR
+  payload: string
+}
+
+export interface SetAppAsInitialized extends Action {
+  type: AppActionTypes.APP_INITIALIZED_SET
+}
+
+export interface ClearError extends Action {
+  type: ErrorActionTypes.ERROR_CLEAR
+}
+
+export interface ClearAllErrors extends Action {
+  type: ErrorActionTypes.ERROR_CLEAR_ALL
+}
+
+export type AppAction = RequestAppInitialize | SetAppInitializeError | SetAppAsInitialized;
+export type ErrorAction = ClearError | ClearAllErrors;
+
+export const requestAppInitialize: ActionCreator<RequestAppInitialize> = () => {
   return {
-    type: APP_INITIALIZE_REQUEST
+    type: AppActionTypes.APP_INITIALIZE_REQUEST
   };
 }
 
-export function setAppInitializeError(error: string) {
+export const setAppInitializeError: ActionCreator<SetAppInitializeError> = (error: string) => {
   return {
-    type: APP_INITIALIZE_ERROR,
+    type: AppActionTypes.APP_INITIALIZE_ERROR,
     payload: error
   };
 }
 
-export function setAppAsInitialized() {
+export const setAppAsInitialized: ActionCreator<SetAppAsInitialized> = () => {
   return {
-    type: APP_INITIALIZED_SET
+    type: AppActionTypes.APP_INITIALIZED_SET
   };
 }
 
-export function clearError(key) {
+export const clearError: ActionCreator<ClearError> = (key) => {
   return {
-    type: ERROR_CLEAR,
+    type: ErrorActionTypes.ERROR_CLEAR,
     payload: key
   };
 }
 
-export function clearAllErrors() {
+export const clearAllErrors: ActionCreator<ClearAllErrors> = () => {
   return {
-    type: ERROR_CLEAR_ALL
+    type: ErrorActionTypes.ERROR_CLEAR_ALL
   };
 }

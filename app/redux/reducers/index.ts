@@ -27,6 +27,7 @@ const createFileSystemStorage = key => {
   };
 };
 
+// Auth is not persisted by Redux because persistence is handled by firebase directly
 export default () => {
   return combineReducers({
     sensitiveData: persistReducer(sensitiveDataPersistConfig, sensitiveData),

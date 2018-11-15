@@ -1,8 +1,13 @@
 import { REHYDRATE } from 'redux-persist';
-import { USER_LOGOUT_REQUEST, APP_INITIALIZED_SET, APP_INITIALIZE_ERROR } from '../actionTypes';
+import { AppActionTypes, AuthActionTypes } from '../actionTypes';
+import { AppAction } from '../actions/app';
+import {AuthAction} from '../actions/auth'
+
+interface AppState {}
 
 const appInitialState = {};
-export function app(state = appInitialState, action) {
+
+export function app(state: AppState = appInitialState, action: any) {
   switch (action.type) {
     case REHYDRATE: {
       return { ...state };
@@ -11,22 +16,28 @@ export function app(state = appInitialState, action) {
   return state;
 }
 
+interface InitializationState {
+  isInitialized: boolean
+  error?: string | null
+}
+
 const initState = {
   isInitialized: false,
   error: ''
 };
-export function initialization(state = initState, action) {
+
+export function initialization(state: InitializationState = initState, action: AppAction | AuthAction) {
   switch (action.type) {
-    case USER_LOGOUT_REQUEST: {
+    case AuthActionTypes.AUTH_LOGOUT_REQUEST: {
       return { ...initState };
     }
-    case APP_INITIALIZED_SET: {
+    case AppActionTypes.APP_INITIALIZED_SET: {
       return {
         ...state,
         isInitialized: true
       };
     }
-    case APP_INITIALIZE_ERROR: {
+    case AppActionTypes.APP_INITIALIZE_ERROR: {
       return {
         ...state,
         error: action.payload

@@ -1,5 +1,5 @@
 import { put, fork, takeEvery } from 'redux-saga/effects';
-import { APP_INITIALIZE_REQUEST } from '../actionTypes';
+import { AppActionTypes } from '../actionTypes';
 import actionCreators from '../actions';
 import { listenForAuthChange } from './auth';
 
@@ -16,7 +16,7 @@ export function* initializeApp() {
 }
 
 export function* watchInitializationRequest() {
-  yield takeEvery(APP_INITIALIZE_REQUEST, initializeApp);
+  yield takeEvery(AppActionTypes.APP_INITIALIZE_REQUEST, initializeApp);
 }
 
 export default function* root() {

@@ -1,5 +1,8 @@
-import { NOTIFICATIONS_PAYLOAD_SET, NOTIFICATIONS_PAYLOAD_CLEAR } from '../actionTypes';
-
+import { NotificationsActionTypes } from '../actionTypes';
+import { Reducer } from 'redux';
+interface NotificationState {
+  notificationPayload: object
+}
 const defaultNotificationsState = {
   notificationPayload: {
     type: null,
@@ -8,11 +11,11 @@ const defaultNotificationsState = {
   }
 };
 
-export function notifications(state = defaultNotificationsState, action) {
+export const notifications: Reducer<NotificationState, any> = (state = defaultNotificationsState, action) => {
   switch (action.type) {
-    case NOTIFICATIONS_PAYLOAD_SET:
+    case NotificationsActionTypes.NOTIFICATIONS_PAYLOAD_SET:
       return { ...state, notificationPayload: action.payload };
-    case NOTIFICATIONS_PAYLOAD_CLEAR:
+    case NotificationsActionTypes.NOTIFICATIONS_PAYLOAD_CLEAR:
       return { ...defaultNotificationsState };
   }
   return state;

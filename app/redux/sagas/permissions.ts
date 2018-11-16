@@ -11,7 +11,7 @@ import {
   PERMISSION_TYPE_MICROPHONE,
   PERMISSION_TYPE_STORAGE
 } from '../../constants';
-import { PERMISSIONS_ALL_GET, PERMISSIONS_REQUEST } from '../actionTypes';
+import { PermissionsActionTypes } from '../actionTypes';
 
 /**
  * Gets the state of each permission type. Possible types are:
@@ -45,8 +45,8 @@ export function* requestPermission(action) {
 }
 
 export function* watchPermissionsRequests() {
-  yield takeEvery(PERMISSIONS_ALL_GET, getAllPermissionsState);
-  yield takeEvery(PERMISSIONS_REQUEST, requestPermission);
+  yield takeEvery(PermissionsActionTypes.PERMISSIONS_ALL_GET, getAllPermissionsState);
+  yield takeEvery(PermissionsActionTypes.PERMISSIONS_REQUEST, requestPermission);
 }
 
 export default function* root() {

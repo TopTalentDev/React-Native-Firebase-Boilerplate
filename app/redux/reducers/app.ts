@@ -2,12 +2,13 @@ import { REHYDRATE } from 'redux-persist';
 import { AppActionTypes, AuthActionTypes } from '../actionTypes';
 import { AppAction } from '../actions/app';
 import {AuthAction} from '../actions/auth'
+import { Reducer } from 'react';
 
 interface AppState {}
 
 const appInitialState = {};
 
-export function app(state: AppState = appInitialState, action: any) {
+export const app: Reducer<AppState, any> = (state = appInitialState, action) => {
   switch (action.type) {
     case REHYDRATE: {
       return { ...state };
@@ -26,7 +27,7 @@ const initState = {
   error: ''
 };
 
-export function initialization(state: InitializationState = initState, action: AppAction | AuthAction) {
+export const initialization: Reducer<InitializationState, AppAction | AuthAction> = (state = initState, action ) => {
   switch (action.type) {
     case AuthActionTypes.AUTH_LOGOUT_REQUEST: {
       return { ...initState };

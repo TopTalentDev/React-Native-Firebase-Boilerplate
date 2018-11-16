@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, NavigationContainerComponent } from 'react-navigation';
 import actionCreators from '../redux/actions';
 import { AppNavigator } from '../navigators';
 import { SCREEN_STACK_HOME, SCREEN_STACK_AUTH } from '../navigators/screenNames';
 
-export interface Props {
-  data?: any[],
-  navigation?: any,
-  auth?: any
+interface DispatchProps {}
+interface Props extends DispatchProps {
+  auth?: any;
 }
 
-export interface State {
-  auth: any
-}
+export class ScreenMain extends Component<Props> {
+  _navigator: NavigationContainerComponent | null;
 
-export class ScreenMain extends Component<Props, State> {
-  _navigator: any;
+  constructor(props: Props) {
+    super(props);
+    this._navigator = null;
+  }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.auth.user && !prevProps.auth.user) {
+    if (this._navigator && this.props.auth.user && !prevProps.auth.user) {
       this._navigator.dispatch(NavigationActions.navigate({ routeName: SCREEN_STACK_HOME }));
-    } else if (!this.props.auth.user && prevProps.auth.user) {
+    } else if (this._navigator && !this.props.auth.user && prevProps.auth.user) {
       this._navigator.dispatch(NavigationActions.navigate({ routeName: SCREEN_STACK_AUTH }));
     }
   }

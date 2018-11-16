@@ -1,12 +1,19 @@
-import { AUTH_ERROR_SET, ERROR_CLEAR, ERROR_CLEAR_ALL } from '../actionTypes';
+import { ErrorActionTypes, AuthActionTypes } from '../actionTypes';
+import { ErrorAction } from '../actions/app';
+import { AuthAction } from '../actions/auth';
+import { Reducer } from 'redux';
 
-export function errors(state = {}, action) {
+export interface ErrorState {
+  authError?: string
+}
+
+export const errors: Reducer<ErrorState, ErrorAction | AuthAction> = (state = {}, action) => {
   switch (action.type) {
-    case AUTH_ERROR_SET:
+    case AuthActionTypes.AUTH_ERROR_SET:
       return { ...state, authError: action.payload };
-    case ERROR_CLEAR:
+    case ErrorActionTypes.ERROR_CLEAR:
       return { ...state, [action.payload]: null };
-    case ERROR_CLEAR_ALL:
+    case ErrorActionTypes.ERROR_CLEAR_ALL:
       return {};
   }
   return state;

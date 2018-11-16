@@ -1,7 +1,8 @@
 import {
   AuthActionTypes
 } from '../actionTypes';
-import { Action, ActionCreator } from 'redux';
+import { Action } from 'redux';
+import { User, AdditionalUserInfo } from '../../types';
 
 export interface RequestLogout extends Action {
   type: AuthActionTypes.AUTH_LOGOUT_REQUEST
@@ -19,12 +20,12 @@ export interface SetAuthError extends Action {
 
 export interface SetAuthChange extends Action {
   type: AuthActionTypes.AUTH_STATE_CHANGE_SET
-  payload: any
+  payload: User
 }
 
 export interface SetAdditionalUserInfo extends Action {
   type: AuthActionTypes.AUTH_ADDITIONAL_USER_INFO_SET
-  payload: any
+  payload: AdditionalUserInfo
 }
 
 export interface RequestFacebookLogin extends Action {
@@ -42,54 +43,54 @@ export interface RequestUserCreateWithEmailAndPassword extends Action {
 
 export type AuthAction = RequestAnonymousLogin | RequestUserCreateWithEmailAndPassword | RequestFacebookLogin | SetAdditionalUserInfo | SetAuthChange | SetAuthError | RequestLogin | RequestLogout;
 
-export const requestAnonymousLogin: ActionCreator<RequestAnonymousLogin> = () => {
+export const requestAnonymousLogin = (): RequestAnonymousLogin => {
   return {
     type: AuthActionTypes.AUTH_ANONYMOUS_LOGIN_REQUEST
   };
 }
 
-export const requestUserCreateWithEmailAndPassword: ActionCreator<RequestUserCreateWithEmailAndPassword> = (email: string, password: string) => {
+export const requestUserCreateWithEmailAndPassword = (email: string, password: string): RequestUserCreateWithEmailAndPassword => {
   return {
     type: AuthActionTypes.AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST,
     payload: { email, password }
   };
 }
 
-export const requestFacebookLogin: ActionCreator<RequestFacebookLogin> = () => {
+export const requestFacebookLogin = (): RequestFacebookLogin => {
   return {
     type: AuthActionTypes.AUTH_FACEBOOK_LOGIN_REQUEST
   };
 }
 
-export const setAdditionalUserInfo: ActionCreator<SetAdditionalUserInfo> = (data: any) => {
+export const setAdditionalUserInfo = (data: any): SetAdditionalUserInfo => {
   return {
     type: AuthActionTypes.AUTH_ADDITIONAL_USER_INFO_SET,
     payload: data
   };
 }
 
-export const setAuthChange: ActionCreator<SetAuthChange> = (user: any) => {
+export const setAuthChange = (user: User): SetAuthChange => {
   return {
     type: AuthActionTypes.AUTH_STATE_CHANGE_SET,
     payload: user
   };
 }
 
-export const setAuthError: ActionCreator<SetAuthError> = (error: string) => {
+export const setAuthError = (error: string): SetAuthError => {
   return {
     type: AuthActionTypes.AUTH_ERROR_SET,
     payload: error
   };
 }
 
-export const requestLogin: ActionCreator<RequestLogin> = (email: string, password: string) =>  {
+export const requestLogin = (email: string, password: string): RequestLogin =>  {
   return {
     type: AuthActionTypes.AUTH_LOGIN_REQUEST,
     payload: { email, password }
   };
 }
 
-export const requestLogout: ActionCreator<RequestLogout>  = () => {
+export const requestLogout = (): RequestLogout => {
   return {
     type: AuthActionTypes.AUTH_LOGOUT_REQUEST
   };

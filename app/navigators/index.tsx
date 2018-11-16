@@ -5,9 +5,12 @@ import {
   createStackNavigator,
   createDrawerNavigator,
   createSwitchNavigator,
-  NavigationActions
+  NavigationActions,
+  NavigationContainer
 } from 'react-navigation';
+//@ts-ignore
 import { DrawerActions } from 'react-navigation-drawer';
+//@ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -49,7 +52,7 @@ const renderBackButton = (focused: boolean, tintColor: string, navigation: any) 
   );
 };
 
-export const BottomTabNavigator = createBottomTabNavigator(
+export const BottomTabNavigator: NavigationContainer = createBottomTabNavigator(
   {
     [SCREEN_TABBED1]: ScreenTabbed1Container,
     [SCREEN_TABBED2]: ScreenTabbed2Container
@@ -84,7 +87,7 @@ export const BottomTabNavigator = createBottomTabNavigator(
 );
 
 // Screens that share the same header bar
-export const MainStackNavigator = createStackNavigator(
+export const MainStackNavigator: NavigationContainer = createStackNavigator(
   {
     [SCREEN_LIST]: {
       screen: ScreenListContainer,
@@ -108,7 +111,7 @@ export const MainStackNavigator = createStackNavigator(
   }
 );
 
-export const ScreenProfileNavigator = createStackNavigator({
+export const ScreenProfileNavigator: NavigationContainer = createStackNavigator({
   [SCREEN_PROFILE]: {
     screen: ScreenProfileContainer,
     navigationOptions: ({ navigation }: { navigation: any }) => {
@@ -120,7 +123,7 @@ export const ScreenProfileNavigator = createStackNavigator({
   }
 });
 
-export const ScreenSettingsNavigator = createStackNavigator({
+export const ScreenSettingsNavigator: NavigationContainer = createStackNavigator({
   [SCREEN_SETTINGS]: {
     screen: ScreenSettingsContainer,
     navigationOptions: ({ navigation }: { navigation: any }) => {
@@ -132,7 +135,7 @@ export const ScreenSettingsNavigator = createStackNavigator({
   }
 });
 
-export const ScreenTabbedNavigator = createStackNavigator({
+export const ScreenTabbedNavigator: NavigationContainer = createStackNavigator({
   [SCREEN_TABBED_MAIN]: {
     screen: BottomTabNavigator,
     navigationOptions: ({ navigation }: { navigation: any }) => {
@@ -144,7 +147,7 @@ export const ScreenTabbedNavigator = createStackNavigator({
   }
 });
 
-export const AppDrawerNavigator = createDrawerNavigator(
+export const AppDrawerNavigator: NavigationContainer = createDrawerNavigator(
   {
     Profile: {
       screen: ScreenProfileNavigator
@@ -170,14 +173,14 @@ export const AppDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export const HomeStack = createStackNavigator({
+export const HomeStack: NavigationContainer = createStackNavigator({
   Drawer: {
     screen: AppDrawerNavigator,
     navigationOptions: { header: null }
   }
 });
 
-export const AuthStack = createStackNavigator({
+export const AuthStack: NavigationContainer = createStackNavigator({
   [SCREEN_LOGIN]: {
     screen: ScreenLoginContainer,
     navigationOptions: { header: null }
@@ -187,7 +190,7 @@ export const AuthStack = createStackNavigator({
   }
 });
 
-export const AppNavigator = createSwitchNavigator(
+export const AppNavigator: NavigationContainer = createSwitchNavigator(
   {
     [SCREEN_STACK_AUTH]: {
       screen: AuthStack,

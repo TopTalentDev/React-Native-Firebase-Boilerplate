@@ -1,21 +1,38 @@
-import { PERMISSIONS_ALL_GET, PERMISSIONS_ALL_SET, PERMISSIONS_REQUEST } from '../actionTypes';
+import { PermissionsActionTypes } from '../actionTypes';
+import { Action } from 'redux';
 
-export function getAllPermissions() {
+export interface GetAllPermissions extends Action {
+  type: PermissionsActionTypes.PERMISSIONS_ALL_GET
+}
+
+export interface SetAllPermissions extends Action {
+  type: PermissionsActionTypes.PERMISSIONS_ALL_SET
+  payload: string[]
+}
+
+export interface RequestPermission extends Action {
+  type: PermissionsActionTypes.PERMISSIONS_REQUEST
+  payload: string
+}
+
+export type PermissionAction = GetAllPermissions | SetAllPermissions | RequestPermission;
+
+export const getAllPermissions = (): GetAllPermissions => {
   return {
-    type: PERMISSIONS_ALL_GET
+    type: PermissionsActionTypes.PERMISSIONS_ALL_GET
   };
 }
 
-export function setAllPermissions(permissions) {
+export const setAllPermissions = (permissions: string[]): SetAllPermissions => {
   return {
-    type: PERMISSIONS_ALL_SET,
+    type: PermissionsActionTypes.PERMISSIONS_ALL_SET,
     payload: permissions
   };
 }
 
-export function requestPermission(type) {
+export const requestPermission = (type: string): RequestPermission => {
   return {
-    type: PERMISSIONS_REQUEST,
+    type: PermissionsActionTypes.PERMISSIONS_REQUEST,
     payload: type
   };
 }

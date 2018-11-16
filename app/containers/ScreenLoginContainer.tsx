@@ -1,29 +1,39 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators, Dispatch, ActionCreator } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
+import * as authActions from '../redux/actions/auth';
+import * as appActions from '../redux/actions/app';
 import { containers, layout, flexbox } from '../theme/global-styles';
 import { SCREEN_REGISTER } from '../navigators/screenNames';
+import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 
-interface Props {
-  me: any
-  isInitialized: boolean
-  navigation: any
-  authError: string
-  requestAnonymousLogin: Function
-  requestFacebookLogin: Function
-  requestLogin: Function
-  clearError: Function
-};
+interface DispatchProps {
+  requestAnonymousLogin: typeof authActions.requestAnonymousLogin;
+  requestFacebookLogin: typeof authActions.requestFacebookLogin;
+  requestLogin: typeof authActions.requestLogin;
+  clearError: typeof appActions.clearError;
+}
+
+interface StoreProps {
+  me: any;
+  isInitialized: boolean;
+  navigation: any;
+  authError: string;
+}
+
+interface Props extends DispatchProps, StoreProps {
+  navigation: NavigationScreenProp<NavigationRoute<NavigationParams>, NavigationParams>;
+}
 
 interface State {
-  email: string | null
-  password: string | null
+  email: string | null;
+  password: string | null;
 }
 
 export class ScreenLogin extends Component<Props, State> {
@@ -45,7 +55,7 @@ export class ScreenLogin extends Component<Props, State> {
   };
   _onLoginPress = () => {
     this.props.clearError('authError');
-    this.props.requestLogin(this.state.email, this.state.password);
+    this.props.requestLogin(this.state.email!, this.state.password!);
   };
   _onRegisterPress = () => {
     this.props.navigation.navigate(SCREEN_REGISTER);
@@ -79,11 +89,9 @@ export class ScreenLogin extends Component<Props, State> {
             <Text style={[s.white]}>Continue with facebook</Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity style={s.pa2} onPress={this._onRegisterPress}>
             <Text>Press to register</Text>
           </TouchableOpacity>
-
 
           <TouchableOpacity style={s.pa2} onPress={this._onAnonymousLoginPress}>
             <Text>Continue without logging in</Text>
@@ -100,7 +108,7 @@ const mapStateToProps = (state: any) => ({
   authError: state.errors.authError
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => bindActionCreators(actionCreators, dispatch);
 
 export const ScreenLoginContainer = connect(
   mapStateToProps,

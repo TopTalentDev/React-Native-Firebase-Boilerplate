@@ -1,13 +1,13 @@
-import { handleActions, combineActions } from 'redux-actions';
-import { REHYDRATE } from 'redux-persist';
 import { AuthActionTypes } from '../actionTypes';
 import { AuthAction } from '../actions/auth';
+import { Reducer } from 'react';
+import { User, AdditionalUserInfo } from '../../types';
 
 export interface AuthState {
-  user?: any
-  additionalUserInfo?: any
+  user?: User
+  additionalUserInfo?: AdditionalUserInfo
 }
-export function auth(state: AuthState = {}, action: AuthAction) {
+export const auth: Reducer<AuthState, AuthAction> = (state={}, action) => {
   switch (action.type) {
     case AuthActionTypes.AUTH_STATE_CHANGE_SET: {
       return { ...state, user: action.payload };

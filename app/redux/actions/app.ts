@@ -2,7 +2,7 @@ import {
   AppActionTypes,
   ErrorActionTypes
 } from '../actionTypes';
-import { ActionCreator, Action } from 'redux';
+import { Action } from 'redux';
 
 export interface RequestAppInitialize extends Action {
   type: AppActionTypes.APP_INITIALIZE_REQUEST
@@ -19,6 +19,7 @@ export interface SetAppAsInitialized extends Action {
 
 export interface ClearError extends Action {
   type: ErrorActionTypes.ERROR_CLEAR
+  payload: string
 }
 
 export interface ClearAllErrors extends Action {
@@ -28,33 +29,33 @@ export interface ClearAllErrors extends Action {
 export type AppAction = RequestAppInitialize | SetAppInitializeError | SetAppAsInitialized;
 export type ErrorAction = ClearError | ClearAllErrors;
 
-export const requestAppInitialize: ActionCreator<RequestAppInitialize> = () => {
+export const requestAppInitialize = (): RequestAppInitialize => {
   return {
     type: AppActionTypes.APP_INITIALIZE_REQUEST
   };
 }
 
-export const setAppInitializeError: ActionCreator<SetAppInitializeError> = (error: string) => {
+export const setAppInitializeError = (error: string): SetAppInitializeError => {
   return {
     type: AppActionTypes.APP_INITIALIZE_ERROR,
     payload: error
   };
 }
 
-export const setAppAsInitialized: ActionCreator<SetAppAsInitialized> = () => {
+export const setAppAsInitialized = (): SetAppAsInitialized => {
   return {
     type: AppActionTypes.APP_INITIALIZED_SET
   };
 }
 
-export const clearError: ActionCreator<ClearError> = (key) => {
+export const clearError = (key: string): ClearError => {
   return {
     type: ErrorActionTypes.ERROR_CLEAR,
     payload: key
   };
 }
 
-export const clearAllErrors: ActionCreator<ClearAllErrors> = () => {
+export const clearAllErrors = (): ClearAllErrors => {
   return {
     type: ErrorActionTypes.ERROR_CLEAR_ALL
   };

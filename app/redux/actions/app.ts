@@ -22,6 +22,11 @@ export interface ClearError extends Action {
   payload: string
 }
 
+export interface SetAppError extends Action {
+  type: ErrorActionTypes.ERROR_SET
+  payload: string
+}
+
 export interface ClearAllErrors extends Action {
   type: ErrorActionTypes.ERROR_CLEAR_ALL
 }
@@ -45,6 +50,13 @@ export const setAppInitializeError = (error: string): SetAppInitializeError => {
 export const setAppAsInitialized = (): SetAppAsInitialized => {
   return {
     type: AppActionTypes.APP_INITIALIZED_SET
+  };
+}
+
+export const setAppError = (key: string): SetAppError => {
+  return {
+    type: ErrorActionTypes.ERROR_SET,
+    payload: key
   };
 }
 

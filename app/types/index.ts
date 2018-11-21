@@ -1,4 +1,10 @@
 import { AuthCredential } from "react-native-firebase";
+import { ConfigSnapshot } from "react-native-firebase/config";
+
+export interface RemoteConfigResult {
+  [key: string]: ConfigSnapshot
+}
+
 //React Native Firebase doesn't seem to export these interfaces/types, so added them here
 export type UserMetadata = {
   creationTime?: string;

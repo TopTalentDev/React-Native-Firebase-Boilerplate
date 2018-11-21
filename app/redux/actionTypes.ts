@@ -16,6 +16,7 @@ export enum AuthActionTypes {
   AUTH_CREATE_EMAIL_PASSWORD_USER_REQUEST = '/auth/CREATE_EMAIL_PASSWORD_USER_REQUEST'
 }
 export enum ErrorActionTypes {
+  ERROR_SET = 'app/ERROR_SET',
   ERROR_CLEAR = 'app/ERROR_CLEAR',
   ERROR_CLEAR_ALL = 'app/ERROR_CLEAR_ALL'
 }

@@ -9,6 +9,7 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import * as authActions from '../redux/actions/auth';
 import * as appActions from '../redux/actions/app';
+import * as admobActions from '../redux/actions/admob';
 import { containers, layout, flexbox } from '../theme/global-styles';
 import { SCREEN_REGISTER } from '../navigators/screenNames';
 import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
@@ -18,6 +19,7 @@ interface DispatchProps {
   requestFacebookLogin: typeof authActions.requestFacebookLogin;
   requestLogin: typeof authActions.requestLogin;
   clearError: typeof appActions.clearError;
+  showSampleInterstitial: typeof admobActions.showSampleInterstitial;
 }
 
 interface StoreProps {
@@ -48,6 +50,7 @@ export class ScreenLogin extends Component<Props, State> {
     this.setState({ password });
   };
   _onAnonymousLoginPress = () => {
+    this.props.showSampleInterstitial();
     this.props.requestAnonymousLogin();
   };
   _onFacebookLoginPress = () => {

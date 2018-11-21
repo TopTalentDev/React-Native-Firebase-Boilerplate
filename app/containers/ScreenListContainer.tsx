@@ -8,6 +8,7 @@ import { styles as s } from 'react-native-style-tachyons';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
+import firebase from 'react-native-firebase';
 
 interface Props {
   data: any[];
@@ -17,6 +18,13 @@ interface Props {
 interface State {
   selected: any;
 }
+
+// @ts-ignore
+const Banner = firebase.admob.Banner;
+// @ts-ignore
+const AdRequest = firebase.admob.AdRequest;
+const request = new AdRequest();
+request.addKeyword('foobar');
 
 export class ScreenList extends Component<Props, State> {
   state: State = { selected: {} };
@@ -56,6 +64,7 @@ export class ScreenList extends Component<Props, State> {
             <Text>Go to settings</Text>
           </TouchableOpacity>
           <FlatList data={this.props.data} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />
+          <Banner unitId="ca-app-pub-3940256099942544/6300978111" request={request.build()} />
         </View>
       </View>
     );

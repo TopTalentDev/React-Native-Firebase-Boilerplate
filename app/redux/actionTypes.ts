@@ -31,3 +31,9 @@ export enum NotificationsActionTypes {
   NOTIFICATIONS_PAYLOAD_SET = 'notifications/PAYLOAD_SET',
   NOTIFICATIONS_PAYLOAD_CLEAR = 'notifications/PAYLOAD_CLEAR'
 }
+
+export enum AdmobActionTypes {
+  ADMOB_LOAD_REQUEST = 'admob/LOAD_REQUEST',
+  ADMOB_IS_LOADED_SET = 'admob/IS_LOADED_SET',
+  ADMOB_SHOW_SAMPLE_INTERSTITIAL = 'admob/SHOW_SAMPLE_INTERSTITIAL'
+}

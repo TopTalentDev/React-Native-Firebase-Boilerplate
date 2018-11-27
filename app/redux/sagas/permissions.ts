@@ -2,6 +2,7 @@ import Permissions from 'react-native-permissions';
 import { Platform } from 'react-native';
 import { call, takeEvery, fork, put } from 'redux-saga/effects';
 import * as actions from '../actions/permissions';
+import {RequestPermission} from '../actions/permissions';
 import {
   PERMISSION_TYPE_LOCATION,
   PERMISSION_TYPE_PHOTO,
@@ -21,7 +22,7 @@ import { PermissionsActionTypes } from '../actionTypes';
  * undetermined: User has not yet been prompted with a permission dialog.
  */
 export function* getAllPermissionsState() {
-  const permissions = yield call(Permissions.checkMultiple, [
+  const permissions: string[] = yield call(Permissions.checkMultiple, [
     ...(Platform.OS === 'android' ? [PERMISSION_TYPE_STORAGE] : []),
     PERMISSION_TYPE_LOCATION,
     PERMISSION_TYPE_PHOTO,
@@ -38,8 +39,8 @@ export function* getAllPermissionsState() {
  * @param {Object} action
  * @param {string} action.payload The permission type as defined by the PERMISSION_TYPE_* constants
  */
-export function* requestPermission(action) {
-  const permissionType = action.payload;
+export function* requestPermission(action: RequestPermission) {
+  const permissionType: string = action.payload;
   yield call(Permissions.request, permissionType);
   yield call(getAllPermissionsState);
 }

@@ -9,6 +9,7 @@ import { sensitiveData } from './sensitiveData';
 import { auth } from './auth';
 import { errors } from './errors';
 import { admob } from './admob';
+import { storage } from './storage';
 
 const sensitiveStorage = createSensitiveStorage({
   keychainService: 'REPLACE_WITH_APP_NAME_OR_OTHER_KEY',
@@ -38,6 +39,7 @@ export default () => {
     permissions,
     initialization,
     errors,
-    admob
+    admob,
+    storage
   });
 };

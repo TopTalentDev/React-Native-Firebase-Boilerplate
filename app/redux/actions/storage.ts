@@ -5,7 +5,7 @@ import { Action } from 'redux';
 
 export interface RequestDownload extends Action {
   type: StorageActionTypes.STORAGE_DOWNLOAD_REQUEST,
-  payload: {path: string, filename: string, directoryPath: string}
+  payload: {path: string, filename: string, directoryPath: string | undefined}
 }
 
 export interface SetStorageIsProcessing extends Action {
@@ -15,10 +15,25 @@ export interface SetStorageIsProcessing extends Action {
 
 export interface RequestUpload extends Action {
   type: StorageActionTypes.STORAGE_UPLOAD_REQUEST,
-  payload: {path: string, filename: string, directoryPath: string}
+  payload: {path: string, filename: string, directoryPath: string | undefined}
 }
 
-export type AdmobAction = RequestDownload | RequestUpload | SetStorageIsProcessing;
+export interface SetStorageLocalUri extends Action {
+  type: StorageActionTypes.STORAGE_LOCAL_URI_SET,
+  payload: {key: string, uri: string}
+}
+
+export interface SetStorageRemoteUri extends Action {
+  type: StorageActionTypes.STORAGE_REMOTE_URI_SET,
+  payload: {key: string, uri: string}
+}
+
+export interface RequestDownloadURL extends Action {
+  type: StorageActionTypes.STORAGE_DOWNLOAD_URL_REQUEST,
+  payload: {path: string}
+}
+
+export type StorageAction = RequestDownload | RequestUpload | SetStorageIsProcessing | SetStorageLocalUri | SetStorageRemoteUri | RequestDownloadURL;
 
 /**
  * Requests that a file is downloaded from Firebase storage to a local directory.
@@ -26,10 +41,10 @@ export type AdmobAction = RequestDownload | RequestUpload | SetStorageIsProcessi
  * @param filename The name of the file to set once the file is downloaded locally
  * @param directoryPath The directory path to save the file to locally
  */
-export const requestDownload = (path: string, filename: string, directoryPath: string): RequestDownload => {
+export const requestDownload = (path: string, filename: string, directoryPath?: string): RequestDownload => {
   return {
     type: StorageActionTypes.STORAGE_DOWNLOAD_REQUEST,
-    payload: {path, filename, directoryPath}
+    payload: {path, filename, directoryPath: directoryPath}
   };
 }
 
@@ -39,7 +54,7 @@ export const requestDownload = (path: string, filename: string, directoryPath: s
  * @param filename The name of the local file to upload
  * @param directoryPath The directory path to the local file to upload
  */
-export const requestUpload = (path: string, filename: string, directoryPath: string): RequestUpload => {
+export const requestUpload = (path: string, filename: string, directoryPath?: string): RequestUpload => {
   return {
     type: StorageActionTypes.STORAGE_UPLOAD_REQUEST,
     payload: {path, filename, directoryPath}
@@ -50,5 +65,40 @@ export const setStorageIsProcessing = (isProcessing: boolean): SetStorageIsProce
   return {
     type: StorageActionTypes.STORAGE_IS_PROCESSING_SET,
     payload: isProcessing
+  };
+}
+
+/**
+ * Sets a local uri (one pointing to a local device storage location) in memory, to be used by the app.
+ * @param key A key that refers to the uri
+ * @param uri The uri associated with the key
+ */
+export const setStorageLocalURI = (key: string, uri: string): SetStorageLocalUri => {
+  return {
+    type: StorageActionTypes.STORAGE_LOCAL_URI_SET,
+    payload: {key, uri}
+  };
+}
+
+/**
+ * Sets a local uri (one pointing to a local device storage location) in memory, to be used by the app.
+ * @param key A key that refers to the uri
+ * @param uri The uri associated with the key
+ */
+export const setStorageRemoteURI = (key: string, uri: string): SetStorageRemoteUri => {
+  return {
+    type: StorageActionTypes.STORAGE_REMOTE_URI_SET,
+    payload: {key, uri}
+  };
+}
+
+/**
+ * Returns a long lived download url for the file
+ * @param path The full firebase ref path including file extension
+ */
+export const requestDownloadURL = (path: string): RequestDownloadURL => {
+  return {
+    type: StorageActionTypes.STORAGE_DOWNLOAD_URL_REQUEST,
+    payload: {path}
   };
 }

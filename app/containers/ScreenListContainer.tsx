@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import FastImage from 'react-native-fast-image';
 // @ts-ignore
 import { styles as s } from 'react-native-style-tachyons';
+import { requestDownloadURL } from '../redux/actions/storage';
 import actionCreators from '../redux/actions';
 import { containers, flexbox } from '../theme/global-styles';
 import { SCREEN_PROFILE, SCREEN_SETTINGS } from '../navigators/screenNames';
 import firebase from 'react-native-firebase';
+import { StorageState } from '../redux/reducers/storage';
 
-interface Props {
+interface DispatchProps {
+  requestDownloadURL?: typeof requestDownloadURL;
+}
+interface StoreProps {
+  storage: StorageState;
+}
+interface Props extends DispatchProps, StoreProps {
   data: any[];
   navigation?: any;
 }
-
 interface State {
   selected: any;
 }
@@ -30,8 +37,13 @@ export class ScreenList extends Component<Props, State> {
   state: State = { selected: {} };
 
   static defaultProps: Props = {
-    data: []
+    data: [],
+    storage: { local: {}, remote: {}, isProcessing: false }
   };
+
+  componentDidMount() {
+    this.props.requestDownloadURL!('/1pyw6w.jpg');
+  }
 
   _keyExtractor = item => item.id;
 
@@ -54,6 +66,8 @@ export class ScreenList extends Component<Props, State> {
   );
 
   render() {
+    const { storage } = this.props;
+    const imagePath = storage.remote['/1pyw6w.jpg'];
     return (
       <View style={[containers.containerMain]}>
         <View style={[s.flx_i, flexbox.columnTopCentered]}>
@@ -63,6 +77,10 @@ export class ScreenList extends Component<Props, State> {
           <TouchableOpacity onPress={this._onGoToSettingsPress}>
             <Text>Go to settings</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={[s.ma3, s.pa3, s.bg_blue, s.white]}>
+            <Text style={[s.white]}>Download Image From Firestore</Text>
+          </TouchableOpacity>
+          {imagePath ? <FastImage style={{ width: 200, height: 100 }} source={{ uri: imagePath }} /> : null}
           <FlatList data={this.props.data} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />
           <Banner unitId="ca-app-pub-3940256099942544/6300978111" request={request.build()} />
         </View>
@@ -73,7 +91,8 @@ export class ScreenList extends Component<Props, State> {
 
 const mapStateToProps = (state: any) => {
   return {
-    data: [{ id: '1' }, { id: '2' }]
+    data: [{ id: '1' }, { id: '2' }],
+    storage: state.storage
   };
 };
 

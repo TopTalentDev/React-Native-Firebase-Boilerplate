@@ -1,6 +1,6 @@
 import { AdmobActionTypes } from '../actionTypes';
-import { Reducer } from 'react';
 import { AdmobAction } from '../actions/admob';
+import { Reducer } from 'redux';
 
 export interface AdMobState {
   isLoading: boolean

@@ -2,9 +2,9 @@ import { REHYDRATE } from 'redux-persist';
 import { AppActionTypes, AuthActionTypes } from '../actionTypes';
 import { AppAction } from '../actions/app';
 import {AuthAction} from '../actions/auth'
-import { Reducer } from 'react';
+import { Reducer } from 'redux';
 
-interface AppState {}
+export interface AppState {}
 
 const appInitialState = {};
 
@@ -17,7 +17,7 @@ export const app: Reducer<AppState, any> = (state = appInitialState, action) => 
   return state;
 }
 
-interface InitializationState {
+export interface InitializationState {
   isInitialized: boolean
   error?: string | null
 }

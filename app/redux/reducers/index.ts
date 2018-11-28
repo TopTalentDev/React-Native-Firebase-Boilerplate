@@ -1,15 +1,16 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Action } from 'redux';
 import { persistReducer } from 'redux-persist';
 import FilesystemStorage from 'redux-persist-filesystem-storage';
+// @ts-ignore
 import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { permissions } from './permissions';
-import { notifications } from './notifications';
-import { app, initialization } from './app';
-import { sensitiveData } from './sensitiveData';
-import { auth } from './auth';
-import { errors } from './errors';
-import { admob } from './admob';
-import { storage } from './storage';
+import { notifications, NotificationState } from './notifications';
+import { app, initialization, InitializationState, AppState } from './app';
+import { sensitiveData, SensitiveDataState } from './sensitiveData';
+import { auth, AuthState } from './auth';
+import { errors, ErrorState } from './errors';
+import { admob, AdMobState } from './admob';
+import { storage, StorageState } from './storage';
 
 const sensitiveStorage = createSensitiveStorage({
   keychainService: 'REPLACE_WITH_APP_NAME_OR_OTHER_KEY',
@@ -29,9 +30,20 @@ const createFileSystemStorage = key => {
   };
 };
 
+export interface RootState {
+  auth: AuthState
+  errors: ErrorState
+  admob: AdMobState
+  initialization: InitializationState
+  notifications: NotificationState
+  storage: StorageState
+  app: AppState
+  sensitiveData: SensitiveDataState
+};
+
 // Auth is not persisted by Redux because persistence is handled by firebase directly
 export default () => {
-  return combineReducers({
+  return combineReducers<RootState>({
     sensitiveData: persistReducer(sensitiveDataPersistConfig, sensitiveData),
     app: persistReducer(createFileSystemStorage('app'), app),
     auth,

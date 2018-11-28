@@ -1,6 +1,7 @@
 import { NotificationsActionTypes } from '../actionTypes';
 import { Reducer } from 'redux';
-interface NotificationState {
+
+export interface NotificationState {
   notificationPayload: object
 }
 const defaultNotificationsState = {

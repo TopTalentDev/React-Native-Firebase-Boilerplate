@@ -18,12 +18,12 @@ export interface RequestUpload extends Action {
   payload: {path: string, filename: string, directoryPath: string | undefined}
 }
 
-export interface SetStorageLocalUri extends Action {
+export interface SetStorageLocalURI extends Action {
   type: StorageActionTypes.STORAGE_LOCAL_URI_SET,
   payload: {key: string, uri: string}
 }
 
-export interface SetStorageRemoteUri extends Action {
+export interface SetStorageRemoteURI extends Action {
   type: StorageActionTypes.STORAGE_REMOTE_URI_SET,
   payload: {key: string, uri: string}
 }
@@ -33,7 +33,7 @@ export interface RequestDownloadURL extends Action {
   payload: {path: string}
 }
 
-export type StorageAction = RequestDownload | RequestUpload | SetStorageIsProcessing | SetStorageLocalUri | SetStorageRemoteUri | RequestDownloadURL;
+export type StorageAction = RequestDownload | RequestUpload | SetStorageIsProcessing | SetStorageLocalURI | SetStorageRemoteURI | RequestDownloadURL;
 
 /**
  * Requests that a file is downloaded from Firebase storage to a local directory.
@@ -73,7 +73,7 @@ export const setStorageIsProcessing = (isProcessing: boolean): SetStorageIsProce
  * @param key A key that refers to the uri
  * @param uri The uri associated with the key
  */
-export const setStorageLocalURI = (key: string, uri: string): SetStorageLocalUri => {
+export const setStorageLocalURI = (key: string, uri: string): SetStorageLocalURI => {
   return {
     type: StorageActionTypes.STORAGE_LOCAL_URI_SET,
     payload: {key, uri}
@@ -85,7 +85,7 @@ export const setStorageLocalURI = (key: string, uri: string): SetStorageLocalUri
  * @param key A key that refers to the uri
  * @param uri The uri associated with the key
  */
-export const setStorageRemoteURI = (key: string, uri: string): SetStorageRemoteUri => {
+export const setStorageRemoteURI = (key: string, uri: string): SetStorageRemoteURI => {
   return {
     type: StorageActionTypes.STORAGE_REMOTE_URI_SET,
     payload: {key, uri}

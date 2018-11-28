@@ -44,7 +44,7 @@ export type StorageAction = RequestDownload | RequestUpload | SetStorageIsProces
 export const requestDownload = (path: string, filename: string, directoryPath?: string): RequestDownload => {
   return {
     type: StorageActionTypes.STORAGE_DOWNLOAD_REQUEST,
-    payload: {path, filename, directoryPath: directoryPath}
+    payload: {path, filename, directoryPath}
   };
 }
 
